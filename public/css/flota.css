@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+input[type=text], select {
+    width: 280px;
+    padding: 6px;
+    margin: 4px 0 10px 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #555;
+    padding: 6px 12px;
+}
+
+th {
+    background-color: #2F5597;
+    color: white;
+}
+
+.mensaje {
+    color: #1a5e20;
+    font-weight: bold;
+}
