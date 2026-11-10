@@ -1,10 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../../models/Rol.php';
-
-$rol = new Rol();
-$roles = $rol->listar();
-
 ?>
 
 <!DOCTYPE html>
