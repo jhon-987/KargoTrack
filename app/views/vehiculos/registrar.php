@@ -9,6 +9,7 @@
     <nav>
         <a href="vehiculos.php?accion=registrar">Registrar vehículo</a> |
         <a href="vehiculos.php">Lista de vehículos</a> |
+        <a href="vehiculos.php?accion=disponibles">Vehículos disponibles</a> |
         <a href="choferes.php?accion=registrar">Registrar chofer</a> |
         <a href="choferes.php">Lista de choferes</a>
     </nav>
