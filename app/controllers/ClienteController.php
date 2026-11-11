@@ -25,8 +25,6 @@ class ClienteController {
             } else {
                 echo "Error al registrar el cliente.";
             }
-        } else {
-            echo "Método de solicitud no válido.";
         }
 
         public function listar() {
