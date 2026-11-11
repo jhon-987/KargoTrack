@@ -10,6 +10,11 @@ if($accion == "registrar"){
 }else if($accion == "disponibles"){
     $vehiculos = $vc->listarDisponibles();
     require "app/views/vehiculos/disponibles.php";
+}else if($accion == "editar"){
+    $id = $_GET["id"] ?? "";
+    $mensaje = $vc->actualizar($id);
+    $vehiculo = $vc->buscar($id);
+    require "app/views/vehiculos/editar.php";
 }else{
     $vehiculos = $vc->listar();
     require "app/views/vehiculos/listar.php";

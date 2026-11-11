@@ -22,6 +22,7 @@
             <th>Placa</th>
             <th>Modelo</th>
             <th>Disponible</th>
+            <th>Acciones</th>
         </tr>
         <?php foreach($vehiculos as $v){ ?>
         <tr>
@@ -29,6 +30,7 @@
             <td><?php echo htmlspecialchars($v["placa"]); ?></td>
             <td><?php echo htmlspecialchars($v["modelo"]); ?></td>
             <td><?php echo $v["disponible"] == 1 ? "Sí" : "No"; ?></td>
+            <td><a href="vehiculos.php?accion=editar&id=<?php echo $v["id"]; ?>">Editar</a></td>
         </tr>
         <?php } ?>
     </table>
