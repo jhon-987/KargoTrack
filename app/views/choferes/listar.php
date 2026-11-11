@@ -21,12 +21,14 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Licencia</th>
+            <th>Acciones</th>
         </tr>
         <?php foreach($choferes as $c){ ?>
         <tr>
             <td><?php echo $c["id"]; ?></td>
             <td><?php echo htmlspecialchars($c["nombre"]); ?></td>
             <td><?php echo htmlspecialchars($c["licencia"]); ?></td>
+            <td><a href="choferes.php?accion=editar&id=<?php echo $c["id"]; ?>">Editar</a></td>
         </tr>
         <?php } ?>
     </table>
