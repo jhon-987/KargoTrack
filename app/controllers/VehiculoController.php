@@ -35,4 +35,9 @@ class VehiculoController{
         $vehiculo = new Vehiculo();
         return $vehiculo->listar();
     }
+
+    public function listarDisponibles(){
+        $vehiculo = new Vehiculo();
+        return $vehiculo->listarDisponibles();
+    }
 }

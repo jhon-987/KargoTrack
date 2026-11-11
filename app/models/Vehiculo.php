@@ -39,4 +39,16 @@ class Vehiculo{
         $conn->cerrar();
         return $vehiculos;
     }
+
+    // trae solo los vehiculos libres (disponible = 1) para poder asignarlos, devuelve un arreglo
+    public function listarDisponibles(){
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $sql = "select id, placa, modelo from vehiculo where disponible = 1 order by id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->execute();
+        $vehiculos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $conn->cerrar();
+        return $vehiculos;
+    }
 }
