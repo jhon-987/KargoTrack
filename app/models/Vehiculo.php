@@ -8,10 +8,11 @@ class Vehiculo{
     private $modelo;
     private $disponible;
 
-    public function __construct($placa="", $modelo="", $disponible=1){
+    public function __construct($placa="", $modelo="", $disponible=1, $id=0){
         $this->placa = $placa;
         $this->modelo = $modelo;
         $this->disponible = $disponible;
+        $this->id = $id;
     }
 
     // guarda el vehiculo con su placa, modelo y si esta disponible, si se inserto bien devuelve true
@@ -50,5 +51,34 @@ class Vehiculo{
         $vehiculos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $conn->cerrar();
         return $vehiculos;
+    }
+
+    // busca un vehiculo por su id, devuelve la fila o false si no existe
+    public function buscarPorId($id){
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $sql = "select id, placa, modelo, disponible from vehiculo where id = :id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $vehiculo = $stmt->fetch(PDO::FETCH_ASSOC);
+        $conn->cerrar();
+        return $vehiculo;
+    }
+
+    // cambia la placa, el modelo y si esta disponible, devuelve cuantas filas se modificaron
+    public function actualizar(){
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $sql = "update vehiculo set placa = :placa, modelo = :modelo, disponible = :disponible where id = :id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':placa', $this->placa);
+        $stmt->bindParam(':modelo', $this->modelo);
+        $stmt->bindParam(':disponible', $this->disponible, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+        $filas = $stmt->rowCount();
+        $conn->cerrar();
+        return $filas;
     }
 }
