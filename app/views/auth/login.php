@@ -4,37 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión - KargoTrack</title>
+    <link rel="stylesheet" href="public/css/estilos_login.css">
 </head>
-<body>
+<body class="login-body">
 
-    <h1>KargoTrack</h1>
-    <h2>Iniciar sesión</h2>
+    <div class="login-container">
+        <h2>KargoTrack</h2>
+        <p>Iniciar sesión</p>
 
-    <form action="index.php?accion=iniciarSesion" method="POST">
+        <?php if (isset($error)): ?>
+            <div class="alert-error"><?php echo $error; ?></div>
+        <?php endif; ?>
 
-        <label for="correo">Correo electrónico:</label>
-        <input
-            type="email"
-            id="correo"
-            name="correo"
-            required
-        >
+        <form action="index.php?accion=iniciarSesion" method="POST">
+            <div class="form-group">
+                <label for="correo">Correo electrónico:</label>
+                <input type="email" id="correo" name="correo" required>
+            </div>
 
-        <br><br>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-        <label for="password">Contraseña:</label>
-        <input
-            type="password"
-            id="password"
-            name="password"
-            required
-        >
+            <button type="submit" class="btn-primary">Ingresar</button>
+        </form>
 
-        <br><br>
-
-        <button type="submit">Ingresar</button>
-
-    </form>
+        <div class="register-link-container">
+            <a href="index.php?accion=formularioUsuario" class="register-link">¿No tienes cuenta? Regístrate aquí</a>
+        </div>
+    </div>
 
 </body>
 </html>
