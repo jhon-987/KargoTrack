@@ -49,7 +49,7 @@
     </table>
 
     <br>
-    <a href="index.php?accion=dashboard">Volver al Dashboard</a>
+    <a href="index.php?accion=dashboardAdmin">Volver al Dashboard</a>
 
 </body>
 </html>
