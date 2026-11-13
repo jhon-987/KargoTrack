@@ -1,4 +1,3 @@
-
 <?php
 
 require_once __DIR__ . '/../models/Entrega.php';
@@ -12,11 +11,6 @@ class EntregaController
         $this->modelo = new Entrega($conexion);
     }
 
-    /**
-     * Registra la entrega de una encomienda.
-     * Recibe los datos del formulario.
-     * Retorna un mensaje con el resultado.
-     */
     public function registrar(array $datos): string
     {
         $idEncomienda = filter_var(
@@ -43,11 +37,6 @@ class EntregaController
             : 'No se pudo registrar la entrega.';
     }
 
-    /**
-     * Consulta la entrega de una encomienda.
-     * Recibe el ID de encomienda.
-     * Retorna sus datos o false si no existe.
-     */
     public function consultar(int $idEncomienda): array|false
     {
         if ($idEncomienda < 1) {
@@ -57,4 +46,3 @@ class EntregaController
         return $this->modelo->consultarEntrega($idEncomienda);
     }
 }
-

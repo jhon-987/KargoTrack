@@ -1,4 +1,3 @@
-
 <?php
 
 require_once __DIR__ . '/../models/Seguimiento.php';
@@ -12,11 +11,6 @@ class SeguimientoController
         $this->modelo = new Seguimiento($conexion);
     }
 
-    /**
-     * Registra una actualización de seguimiento.
-     * Recibe los datos del formulario.
-     * Retorna un mensaje con el resultado.
-     */
     public function registrar(array $datos): string
     {
         $idEncomienda = filter_var(
@@ -43,11 +37,6 @@ class SeguimientoController
             : 'No se pudo registrar el seguimiento.';
     }
 
-    /**
-     * Consulta el historial de una encomienda.
-     * Recibe el ID de encomienda.
-     * Retorna un arreglo con sus movimientos.
-     */
     public function historial(int $idEncomienda): array
     {
         if ($idEncomienda < 1) {
@@ -57,4 +46,3 @@ class SeguimientoController
         return $this->modelo->consultarHistorial($idEncomienda);
     }
 }
-
