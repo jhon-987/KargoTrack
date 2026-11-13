@@ -12,7 +12,6 @@ class RolController {
 
     public function listar() {
         $roles = $this->rol->listar();
-
         require __DIR__ . '/../views/roles/listar.php';
     }
 }
