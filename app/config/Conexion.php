@@ -2,17 +2,17 @@
 
 class Conexion {
 
-    private $host = "localhost";
-    private $dbname = "kargotrack";
-    private $username = "root";
-    private $password = "";
+    private static $host = "localhost";
+    private static $dbname = "kargotrack_db";
+    private static $username = "root";
+    private static $password = "";
 
-    public function getConnection() {
+    public static function getConnection() {
         try {
             $conexion = new PDO(
-                "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4",
-                $this->username,
-                $this->password
+                "mysql:host=" . self::$host . ";dbname=" . self::$dbname . ";charset=utf8mb4",
+                self::$username,
+                self::$password
             );
 
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
