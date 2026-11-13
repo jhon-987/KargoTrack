@@ -30,9 +30,6 @@
             <button type="submit" class="btn-primary">Ingresar</button>
         </form>
 
-        <div class="register-link-container">
-            <a href="index.php?accion=formularioUsuario" class="register-link">¿No tienes cuenta? Regístrate aquí</a>
-        </div>
     </div>
 
 </body>
