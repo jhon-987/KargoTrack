@@ -13,7 +13,7 @@ class UsuarioController {
         $this->rol = new Rol();
     }
 
-    public function login() {
+public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $correo = $_POST['correo'] ?? '';
             $password = $_POST['password'] ?? '';
@@ -29,10 +29,24 @@ class UsuarioController {
                 $_SESSION['nombre'] = $user['nombre'];
                 $_SESSION['idRol'] = $user['id_rol'];
 
-                header('Location: /KargoTrack/index.php?accion=dashboard');
+                switch ((int)$user['id_rol']) {
+                    case 1: // Administrador
+                        header('Location: /KargoTrack/index.php?accion=dashboardAdmin');
+                        break;
+                    case 2: // Operador
+                        header('Location: /KargoTrack/index.php?accion=dashboardOperador');
+                        break;
+                    case 3: // Cliente
+                        header('Location: /KargoTrack/index.php?accion=dashboardCliente');
+                        break;
+                    default:
+                        header('Location: /KargoTrack/index.php?accion=dashboard');
+                        break;
+                }
                 exit();
+
             } else {
-                $error = "correo o contraseña incorrectos.";
+                $error = "Correo o contraseña incorrectos.";
                 require __DIR__ . '/../views/auth/login.php';
             }
         } else {
