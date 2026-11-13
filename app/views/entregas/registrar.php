@@ -131,8 +131,12 @@ $mensaje = $mensaje ?? '';
     </form>
 
     <p>
-        <a href="seguimiento.php">Ir a seguimiento</a>
-    </p>
+    <a href="seguimiento.php">Ir a seguimiento</a>
+</p>
+
+<p>
+    <a href="modulo5.php">Volver al menú del módulo 5</a>
+</p>
 </div>
 
 </body>

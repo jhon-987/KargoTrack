@@ -151,8 +151,12 @@ $idEncomienda = $idEncomienda ?? 0;
     </div>
 
     <p>
-        <a href="seguimiento.php">Registrar nuevo seguimiento</a>
-    </p>
+    <a href="seguimiento.php">Registrar nuevo seguimiento</a>
+</p>
+
+<p>
+    <a href="modulo5.php">Volver al menú del módulo 5</a>
+</p>
 </div>
 
 </body>
