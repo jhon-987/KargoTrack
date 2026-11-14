@@ -1,0 +1,104 @@
+//*CREATE DATABASE IF NOT EXISTS kargotrack
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+USE kargotrack;
+
+CREATE TABLE IF NOT EXISTS encomiendas (
+    id_encomienda INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL,
+    estado VARCHAR(50) NOT NULL DEFAULT 'Registrado'
+);
+
+CREATE TABLE IF NOT EXISTS seguimientos (
+    id_seguimiento INT AUTO_INCREMENT PRIMARY KEY,
+    id_encomienda INT NOT NULL,
+    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ubicacion VARCHAR(150) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_encomienda)
+        REFERENCES encomiendas(id_encomienda)
+);
+
+CREATE TABLE IF NOT EXISTS entregas (
+    id_entrega INT AUTO_INCREMENT PRIMARY KEY,
+    id_encomienda INT NOT NULL,
+    fecha_entrega DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    receptor VARCHAR(150) NOT NULL,
+    observacion VARCHAR(255),
+    FOREIGN KEY (id_encomienda)
+        REFERENCES encomiendas(id_encomienda)
+);
+
+INSERT INTO encomiendas (descripcion, estado)
+SELECT 'Paquete de prueba KargoTrack', 'Registrado'
+WHERE NOT EXISTS (
+    SELECT 1 FROM encomiendas
+);
+USE kargotrack;
+
+INSERT INTO encomiendas (descripcion, estado)
+VALUES
+('Laptop enviada a Huánuco', 'Registrado'),
+('Documentos enviados a Lima', 'En tránsito'),
+('Ropa enviada a Tingo María', 'Registrado'),
+('Celular enviado a Pucallpa', 'En tránsito'),
+('Libros enviados a Amarilis', 'Registrado'),
+('Repuestos enviados a Huancayo', 'Registrado'),
+('Paquete de oficina enviado a Lima', 'En tránsito'),
+('Accesorios enviados a Huánuco', 'Registrado'),
+('Materiales educativos enviados a Tingo María', 'Registrado'),
+('Productos electrónicos enviados a Pucallpa', 'En tránsito');
+
+INSERT INTO seguimientos (id_encomienda, ubicacion, estado)
+SELECT e.id_encomienda, 'Huánuco', 'Registrado'
+FROM encomiendas e
+WHERE e.descripcion = 'Laptop enviada a Huánuco';
+
+INSERT INTO seguimientos (id_encomienda, ubicacion, estado)
+SELECT e.id_encomienda, 'Lima', 'En tránsito'
+FROM encomiendas e
+WHERE e.descripcion = 'Documentos enviados a Lima';
+
+INSERT INTO seguimientos (id_encomienda, ubicacion, estado)
+SELECT e.id_encomienda, 'Tingo María', 'En almacén'
+FROM encomiendas e
+WHERE e.descripcion = 'Ropa enviada a Tingo María';
+
+INSERT INTO seguimientos (id_encomienda, ubicacion, estado)
+SELECT e.id_encomienda, 'Pucallpa', 'En tránsito'
+FROM encomiendas e
+WHERE e.descripcion = 'Celular enviado a Pucallpa';
+
+INSERT INTO seguimientos (id_encomienda, ubicacion, estado)
+SELECT e.id_encomienda, 'Amarilis', 'Registrado'
+FROM encomiendas e
+WHERE e.descripcion = 'Libros enviados a Amarilis';
+
+INSERT INTO entregas (id_encomienda, receptor, observacion)
+SELECT e.id_encomienda, 'Carlos Ramírez', 'Paquete recibido en buen estado'
+FROM encomiendas e
+WHERE e.descripcion = 'Laptop enviada a Huánuco';
+
+INSERT INTO entregas (id_encomienda, receptor, observacion)
+SELECT e.id_encomienda, 'María López', 'Documentos entregados correctamente'
+FROM encomiendas e
+WHERE e.descripcion = 'Documentos enviados a Lima';
+
+INSERT INTO entregas (id_encomienda, receptor, observacion)
+SELECT e.id_encomienda, 'José Fernández', 'Entrega realizada sin inconvenientes'
+FROM encomiendas e
+WHERE e.descripcion = 'Ropa enviada a Tingo María';
+
+SELECT * FROM encomiendas;
+SELECT * FROM seguimientos;
+SELECT * FROM entregas;
+
+SHOW TABLES;
+
+SELECT * FROM encomiendas;
+SELECT * FROM seguimientos;
+SELECT * FROM entregas;
+
+SELECT TABLE_NAME
+FROM information_schema.TABLES
+WHERE TABLE_SCHEMA = 'kargotrack';
