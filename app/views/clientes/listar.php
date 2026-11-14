@@ -48,8 +48,14 @@
         </tbody>
     </table>
 
-    <br>
-    <a href="index.php?accion=dashboardAdmin">Volver al Dashboard</a>
+    <?php
+    $rolDashboard = 'dashboardAdmin'; 
+
+    if (isset($_SESSION['idRol']) && $_SESSION['idRol'] == 2) {
+        $rolDashboard = 'dashboardOperador';
+    }
+    ?>
+    <a href="index.php?accion=<?php echo $rolDashboard; ?>">Volver al Dashboard</a>
 
 </body>
 </html>

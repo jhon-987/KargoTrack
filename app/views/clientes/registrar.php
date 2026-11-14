@@ -51,7 +51,14 @@
         </form>
 
         <div class="link-container">
-            <a href="index.php?accion=listarClientes" class="link-secondary">← Volver al listado de clientes</a>
+                <?php
+                $rolDashboard = 'dashboardAdmin'; 
+
+                if (isset($_SESSION['idRol']) && $_SESSION['idRol'] == 2) {
+                    $rolDashboard = 'dashboardOperador';
+                }
+                ?>
+            <a href="index.php?accion=<?php echo $rolDashboard; ?>" class="link-secondary">← Volver</a>
         </div>
     </div>
 

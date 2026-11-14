@@ -9,7 +9,7 @@
 <body>
 
     <div class="dashboard-layout">
-        <!-- Sidebar de Navegación -->
+        <!-- Navegacion -->
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <h2>KargoTrack</h2>
@@ -25,7 +25,7 @@
             </ul>
         </aside>
 
-        <!-- Contenido Principal -->
+        <!-- Contenido -->
         <main class="main-content">
             <header class="content-header">
                 <h2>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre'] ?? 'Administrador', ENT_QUOTES, 'UTF-8'); ?></h2>
@@ -35,7 +35,7 @@
             <section class="cards-grid">
                 <div class="card">
                     <h3>Control de Personal</h3>
-                    <p>Administra los usuarios internos, registra nuevos operadores o administradores y asigna roles del sistema[cite: 1].</p>
+                    <p>Administra los usuarios internos, registra nuevos operadores o administradores y asigna roles del sistema.</p>
                     <div class="card-actions">
                         <a href="index.php?accion=listarUsuarios" class="btn-card">Ver Usuarios</a>
                         <a href="index.php?accion=formularioUsuario" class="btn-card btn-secondary-card">Registrar Nuevo</a>
@@ -44,13 +44,13 @@
 
                 <div class="card">
                     <h3>Roles del Sistema</h3>
-                    <p>Consulta los permisos y perfiles configurados en la plataforma[cite: 1].</p>
+                    <p>Consulta los permisos y perfiles configurados en la plataforma.</p>
                     <a href="index.php?accion=listarRoles" class="btn-card">Ver Roles</a>
                 </div>
 
                 <div class="card">
                     <h3>Directorio de Clientes</h3>
-                    <p>Visualiza el registro de clientes externos de la empresa para asociarlos a los envíos[cite: 2].</p>
+                    <p>Visualiza el registro de clientes externos de la empresa para asociarlos a los envíos.</p>
                     <a href="index.php?accion=listarClientes" class="btn-card">Ver Clientes</a>
                 </div>
             </section>

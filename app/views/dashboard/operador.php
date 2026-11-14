@@ -9,7 +9,7 @@
 <body>
 
     <div class="dashboard-layout">
-        <!-- Sidebar de Navegación del Operador -->
+
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <h2>KargoTrack</h2>
@@ -23,7 +23,6 @@
             </ul>
         </aside>
 
-        <!-- Contenido Principal -->
         <main class="main-content">
             <header class="content-header">
                 <h2>Hola, <?php echo htmlspecialchars($_SESSION['nombre'] ?? 'Operador', ENT_QUOTES, 'UTF-8'); ?></h2>
@@ -39,7 +38,7 @@
                 
                 <div class="card">
                     <h3>Gestión de Encomiendas</h3>
-                    <p>Registra nuevos paquetes, asigna detalles y actualiza estados durante el traslado[cite: 2].</p>
+                    <p>Registra nuevos paquetes, asigna detalles y actualiza estados durante el traslado.</p>
                     <span class="info-tag">Módulo Operativo Activo</span>
                 </div>
             </section>

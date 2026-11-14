@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once __DIR__ . '/app/controllers/UsuarioController.php';
 require_once __DIR__ . '/app/controllers/RolController.php';
@@ -36,7 +39,6 @@ switch ($accion) {
         $clienteController->listar();
         break;
 
-    // --- GESTIÓN DE USUARIOS Y ROLES ---
     case 'formularioUsuario':
         $usuarioController->registro();
         break;
@@ -53,9 +55,7 @@ switch ($accion) {
         $rolController->listar();
         break;
 
-    // --- DASHBOARDS POR ROL ---
     case 'dashboardAdmin':
-        if (session_status() === PHP_SESSION_NONE) { session_start(); }
         if (!isset($_SESSION['idUsuario']) || $_SESSION['idRol'] != 1) {
             header('Location: index.php?accion=login');
             exit();
@@ -64,7 +64,6 @@ switch ($accion) {
         break;
 
     case 'dashboardOperador':
-        if (session_status() === PHP_SESSION_NONE) { session_start(); }
         if (!isset($_SESSION['idUsuario']) || $_SESSION['idRol'] != 2) {
             header('Location: index.php?accion=login');
             exit();
@@ -73,16 +72,10 @@ switch ($accion) {
         break;
 
     case 'dashboardCliente':
-        if (session_status() === PHP_SESSION_NONE) { session_start(); }
-        if (!isset($_SESSION['idUsuario']) || $_SESSION['idRol'] != 3) {
-            header('Location: index.php?accion=login');
-            exit();
-        }
         require_once __DIR__ . '/app/views/dashboard/cliente.php';
         break;
 
     case 'logout':
-        if (session_status() === PHP_SESSION_NONE) { session_start(); }
         session_destroy();
         header('Location: index.php?accion=inicio');
         exit();
