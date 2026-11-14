@@ -12,6 +12,10 @@ if($accion == "registrar"){
     $mensaje = $cc->actualizar($id);
     $chofer = $cc->buscar($id);
     require "app/views/choferes/editar.php";
+}else if($accion == "eliminar"){
+    $mensaje = $cc->eliminar();
+    $choferes = $cc->listar();
+    require "app/views/choferes/listar.php";
 }else{
     $choferes = $cc->listar();
     require "app/views/choferes/listar.php";

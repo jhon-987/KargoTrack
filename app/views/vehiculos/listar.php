@@ -16,6 +16,10 @@
 
     <h2>Lista de vehículos</h2>
 
+    <?php if(!empty($mensaje)){ ?>
+        <p class="mensaje"><?php echo $mensaje; ?></p>
+    <?php } ?>
+
     <table>
         <tr>
             <th>ID</th>
@@ -30,7 +34,13 @@
             <td><?php echo htmlspecialchars($v["placa"]); ?></td>
             <td><?php echo htmlspecialchars($v["modelo"]); ?></td>
             <td><?php echo $v["disponible"] == 1 ? "Sí" : "No"; ?></td>
-            <td><a href="vehiculos.php?accion=editar&id=<?php echo $v["id"]; ?>">Editar</a></td>
+            <td>
+                <a href="vehiculos.php?accion=editar&id=<?php echo $v["id"]; ?>">Editar</a>
+                <form method="post" action="vehiculos.php?accion=eliminar" class="en-linea" onsubmit="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                    <input type="hidden" name="id" value="<?php echo $v["id"]; ?>">
+                    <input type="submit" value="Eliminar">
+                </form>
+            </td>
         </tr>
         <?php } ?>
     </table>

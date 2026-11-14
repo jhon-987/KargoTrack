@@ -16,6 +16,10 @@
 
     <h2>Lista de choferes</h2>
 
+    <?php if(!empty($mensaje)){ ?>
+        <p class="mensaje"><?php echo $mensaje; ?></p>
+    <?php } ?>
+
     <table>
         <tr>
             <th>ID</th>
@@ -28,7 +32,13 @@
             <td><?php echo $c["id"]; ?></td>
             <td><?php echo htmlspecialchars($c["nombre"]); ?></td>
             <td><?php echo htmlspecialchars($c["licencia"]); ?></td>
-            <td><a href="choferes.php?accion=editar&id=<?php echo $c["id"]; ?>">Editar</a></td>
+            <td>
+                <a href="choferes.php?accion=editar&id=<?php echo $c["id"]; ?>">Editar</a>
+                <form method="post" action="choferes.php?accion=eliminar" class="en-linea" onsubmit="return confirm('¿Seguro que quieres eliminar este chofer?');">
+                    <input type="hidden" name="id" value="<?php echo $c["id"]; ?>">
+                    <input type="submit" value="Eliminar">
+                </form>
+            </td>
         </tr>
         <?php } ?>
     </table>

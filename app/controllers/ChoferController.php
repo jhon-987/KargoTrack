@@ -76,4 +76,27 @@ class ChoferController{
         }
         return $mensaje;
     }
+
+    public function eliminar(){
+        $mensaje = "";
+        if(!empty($_POST)){
+            $id = filter_var($_POST["id"] ?? "", FILTER_VALIDATE_INT);
+            if($id === false){
+                $mensaje = "El ID del chofer no es válido";
+            }else{
+                try{
+                    $chofer = new Chofer();
+                    if($chofer->eliminar($id) > 0){
+                        $mensaje = "Chofer eliminado correctamente";
+                    }else{
+                        $mensaje = "No existe un chofer con ese ID";
+                    }
+                }catch(PDOException $e){
+                    // cuando la tabla envio apunte a chofer, no deja borrar uno que ya esta asignado
+                    $mensaje = "No se puede eliminar porque el chofer está asignado a un envío";
+                }
+            }
+        }
+        return $mensaje;
+    }
 }

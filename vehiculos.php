@@ -15,6 +15,10 @@ if($accion == "registrar"){
     $mensaje = $vc->actualizar($id);
     $vehiculo = $vc->buscar($id);
     require "app/views/vehiculos/editar.php";
+}else if($accion == "eliminar"){
+    $mensaje = $vc->eliminar();
+    $vehiculos = $vc->listar();
+    require "app/views/vehiculos/listar.php";
 }else{
     $vehiculos = $vc->listar();
     require "app/views/vehiculos/listar.php";

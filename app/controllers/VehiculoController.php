@@ -83,4 +83,27 @@ class VehiculoController{
         }
         return $mensaje;
     }
+
+    public function eliminar(){
+        $mensaje = "";
+        if(!empty($_POST)){
+            $id = filter_var($_POST["id"] ?? "", FILTER_VALIDATE_INT);
+            if($id === false){
+                $mensaje = "El ID del vehículo no es válido";
+            }else{
+                try{
+                    $vehiculo = new Vehiculo();
+                    if($vehiculo->eliminar($id) > 0){
+                        $mensaje = "Vehículo eliminado correctamente";
+                    }else{
+                        $mensaje = "No existe un vehículo con ese ID";
+                    }
+                }catch(PDOException $e){
+                    // cuando la tabla envio apunte a vehiculo, no deja borrar uno que ya esta asignado
+                    $mensaje = "No se puede eliminar porque el vehículo está asignado a un envío";
+                }
+            }
+        }
+        return $mensaje;
+    }
 }
