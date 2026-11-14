@@ -65,4 +65,17 @@ class Chofer{
         $conn->cerrar();
         return $filas;
     }
+
+    // borra al chofer con ese id, devuelve 1 si lo borro o 0 si no existia
+    public function eliminar($id){
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $sql = "delete from chofer where id = :id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $filas = $stmt->rowCount();
+        $conn->cerrar();
+        return $filas;
+    }
 }

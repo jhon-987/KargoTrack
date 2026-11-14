@@ -81,4 +81,17 @@ class Vehiculo{
         $conn->cerrar();
         return $filas;
     }
+
+    // borra el vehiculo con ese id, devuelve 1 si lo borro o 0 si no existia
+    public function eliminar($id){
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $sql = "delete from vehiculo where id = :id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $filas = $stmt->rowCount();
+        $conn->cerrar();
+        return $filas;
+    }
 }
