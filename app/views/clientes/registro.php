@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <meta> charset="UTF-8">
+        <meta charset="UTF-8">
         <title>Registrar Cliente</title>
     </head>
     <body>
         <h2>Registrar nuevo Cliente</h2>
 
-        <form action="/kargotrack/public/index.php?action=guardar_cliente" method="POST"
+        <form action="?action=guardar_cliente" method="POST">
         
         <div>
             <label for="nombre">Nombre completo:</label>
@@ -23,7 +23,7 @@
             <label for="telefono"> Telefono:</label>
             <input type="text" id="telefono" name="telefono" required>
         </div>
-        <button>type="submit">Guardar Cliente</button>
+        <button type="submit">Guardar Cliente</button>
       </form>
     </body>
 </html>
