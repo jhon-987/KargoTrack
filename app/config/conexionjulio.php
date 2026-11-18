@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 
 class ConexionJulio {
@@ -26,7 +26,7 @@ class ConexionJulio {
         }
     }
 }
-=======
+
 
 <?php
 
