@@ -32,20 +32,30 @@ class ConexionJulio {
 
 class Conexion
 {
+    private static $host = 'localhost';
+    private static $dbname = 'kargotrack';
+    private static $username = 'root';
+    private static $password = '';
+
+    public static function getConnection(): PDO
+    {
+        return self::conectar();
+    }
+
     public static function conectar(): PDO
     {
-        $host = 'localhost';
-        $bd = 'kargotrack';
-        $usuario = 'root';
-        $clave = '';
+        $dsn = 'mysql:host=' . self::$host .
+               ';dbname=' . self::$dbname .
+               ';charset=utf8mb4';
 
-        $dsn = "mysql:host=$host;dbname=$bd;charset=utf8mb4";
-
-        return new PDO($dsn, $usuario, $clave, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        ]);
+        return new PDO(
+            $dsn,
+            self::$username,
+            self::$password,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]
+        );
     }
 }
-
->>>>>>> 3aeef82cf5f235a7747fa484e17f4d23f6b76b4e
