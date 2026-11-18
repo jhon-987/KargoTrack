@@ -100,3 +100,27 @@ insert into chofer (nombre, licencia) values
 ('Carlos Ramirez Tucto', 'Q45879632'),
 ('Luis Espinoza Rojas', 'Q71235498'),
 ('Miguel Huaman Soto', 'Q60984127');
+
+CREATE TABLE IF NOT EXISTS seguimientos (
+    id_seguimiento INT AUTO_INCREMENT PRIMARY KEY,
+    id_encomienda INT NOT NULL,
+    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ubicacion VARCHAR(150) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
+    CONSTRAINT fk_seguimiento_encomienda
+        FOREIGN KEY (id_encomienda)
+        REFERENCES encomiendas(id_encomienda)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS entregas (
+    id_entrega INT AUTO_INCREMENT PRIMARY KEY,
+    id_encomienda INT NOT NULL,
+    fecha_entrega DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    receptor VARCHAR(100) NOT NULL,
+    observacion TEXT,
+    CONSTRAINT fk_entrega_encomienda
+        FOREIGN KEY (id_encomienda)
+        REFERENCES encomiendas(id_encomienda)
+        ON DELETE CASCADE
+);

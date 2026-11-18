@@ -134,7 +134,7 @@ require_once __DIR__ . '/app/controllers/RolController.php';
 require_once __DIR__ . '/app/controllers/ClienteController.php';
 require_once __DIR__ . '/app/controllers/EncomiendaController.php';
 
-require_once __DIR__ . '/app/config/Conexion.php';
+require_once __DIR__ . '/app/config/conexion.php';
 
 $rolController = new RolController();
 $usuarioController = new UsuarioController();
