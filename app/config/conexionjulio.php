@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 <?php
 
-class Conexion {
+class ConexionJulio {
 
     private static $host = "localhost";
     private static $dbname = "kargotrack_db";

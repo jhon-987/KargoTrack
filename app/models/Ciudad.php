@@ -1,14 +1,14 @@
 
 <?php
 
-require_once __DIR__ . '/../config/conexion.php';
+require_once __DIR__ . '/../config/conexionjulio.php';
 
 class Ciudad {
 
     private $conexion;
 
     public function __construct() {
-        $db = new Conexion();
+        $db = new ConexionJulio();
         $this->conexion = $db->conectar();
     }
 
