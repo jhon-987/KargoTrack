@@ -22,6 +22,19 @@
                 <li><a href="index.php?accion=listarCiudades">Gestión de Ciudades</a></li>
                 <li><a href="index.php?accion=listarVehiculos">Flota de Vehículos</a></li>
                 <li><a href="index.php?accion=listarChoferes">Registro de Choferes</a></li>
+                li><a href="index.php?accion=listarEncomiendas">Registro de Encomiendas</a></li>
+                <li><a href="index.php?accion=listarEnvios">Envíos y Rutas</a></li>
+                <li><a href="index.php?accion=listarSeguimiento">Control de Tracking</a></li>
+                <li><a href="index.php?accion=registroEncomienda">Registrar Nueva Encomienda</a></li>
+                <li><a href="index.php?accion=registroVehiculo">Registrar Nuevo Vehículo</a></li>
+                <li><a href="index.php?accion=registroChofer">Registrar Nuevo Chofer</a></li>
+                <li><a href="index.php?accion=registroCliente">Registrar Nuevo Cliente</li>
+                <li><a href="index.php?accion=registroCiudad">Registrar Nueva Ciudad</li>
+                <li><a href="index.php?accion=registroRol">Registrar Nuevo Rol</li>
+                <li><a href="index.php?accion=registroUsuario">Registrar Nuevo Usuario</li>
+                <li><a href="index.php?accion=registroEnvio">Registrar Nuevo Envío</li>
+                <li><a href="index.php?accion=registroTracking">Registrar Nuevo Tracking</li>
+                <li><a href="index.php?accion=registroRuta">Registrar Nueva Ruta</li>
                 <li><a href="index.php?accion=logout" class="logout-link">Cerrar Sesión</a></li>
             </ul>
         </aside>

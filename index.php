@@ -19,7 +19,6 @@ $encomiendaController = new EncomiendaController($conexion);
 
 $accion = $_GET['accion'] ?? $_GET['action'] ?? 'inicio';
 
-// FUNCIÓN DE SEGURIDAD PARA PROTEGER RUTAS
 function verificarAcceso($rolesPermitidos = [1, 2]) {
     // Verificar si el usuario ha iniciado sesión
     if (!isset($_SESSION['idUsuario'])) {
@@ -124,6 +123,13 @@ switch ($accion) {
         verificarAcceso([1, 2]);
         $encomiendaController->listar();
         break;
+
+    case 'listarVehiculos':
+        verificarAcceso([1, 2]);
+        $encomiendaController->listar();
+        break;
+
+    
 
     // CERRAR SESIÓN
     case 'logout':
