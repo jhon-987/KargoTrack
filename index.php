@@ -1,4 +1,51 @@
 <?php
+<<<<<<< Updated upstream
+=======
+
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KargoTrack - Sistema de Gestión</title>
+</head>
+
+<body>
+
+<header>
+    <h1>KargoTrack</h1>
+    <p>Sistema de gestión de encomiendas y transporte</p>
+</header>
+
+<div class="container">
+
+    <h2>Panel de Gestión</h2>
+
+    <div class="menu">
+
+        <div class="card">
+            <h3>Gestión de Ciudades</h3>
+            <p>Registro y consulta de ciudades y departamentos.</p>
+            <a href="app/views/ciudades.php">Ingresar</a>
+        </div>
+
+        <div class="card">
+            <h3>Gestión de Envíos</h3>
+            <p>Programación y consulta de envíos y transporte.</p>
+            <a href="app/views/envios.php">Ingresar</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+<?php
+
+>>>>>>> Stashed changes
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
