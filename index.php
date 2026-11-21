@@ -3,12 +3,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 1. Requerir Controladores y Conexión
+require_once __DIR__ . '/app/config/Conexion.php';
 require_once __DIR__ . '/app/controllers/UsuarioController.php';
 require_once __DIR__ . '/app/controllers/RolController.php';
 require_once __DIR__ . '/app/controllers/ClienteController.php';
 require_once __DIR__ . '/app/controllers/EncomiendaController.php';
-require_once __DIR__ . '/app/config/Conexion.php';
 
 $rolController = new RolController();
 $usuarioController = new UsuarioController();
@@ -22,11 +21,12 @@ $accion = $_GET['accion'] ?? $_GET['action'] ?? 'inicio';
 function verificarAcceso($rolesPermitidos = [1, 2]) {
     // Verificar si el usuario ha iniciado sesión
     if (!isset($_SESSION['idUsuario'])) {
-        header('Location: index.php?accion=login');
+        header('Location: index.php?accion=iniciarSesion');
         exit();
     }
-    // Verificar si el rol del usuario esta permitido
+    // Verificar si el rol del usuario está permitido
     if (!in_array($_SESSION['idRol'] ?? null, $rolesPermitidos)) {
+        http_response_code(403);
         echo "<h3>Acceso Denegado. No tienes permisos para ver esta sección.</h3>";
         exit();
     }
@@ -39,6 +39,7 @@ switch ($accion) {
         break;
 
     case 'iniciarSesion':
+    case 'login':
         $usuarioController->login();
         break;
 
@@ -129,10 +130,9 @@ switch ($accion) {
         $encomiendaController->listar();
         break;
 
-    
-
     // CERRAR SESIÓN
     case 'logout':
+        session_unset();
         session_destroy();
         header('Location: index.php?accion=inicio');
         exit();
