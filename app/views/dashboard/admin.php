@@ -22,13 +22,13 @@
                 <li><a href="index.php?accion=listarCiudades">Gestión de Ciudades</a></li>
                 <li><a href="index.php?accion=listarVehiculos">Flota de Vehículos</a></li>
                 <li><a href="index.php?accion=listarChoferes">Registro de Choferes</a></li>
-                li><a href="index.php?accion=listarEncomiendas">Registro de Encomiendas</a></li>
+                <li><a href="index.php?accion=listarEncomiendas">Registro de Encomiendas</a></li>
                 <li><a href="index.php?accion=listarEnvios">Envíos y Rutas</a></li>
                 <li><a href="index.php?accion=listarSeguimiento">Control de Tracking</a></li>
                 <li><a href="index.php?accion=registroEncomienda">Registrar Nueva Encomienda</a></li>
                 <li><a href="index.php?accion=registroVehiculo">Registrar Nuevo Vehículo</a></li>
                 <li><a href="index.php?accion=registroChofer">Registrar Nuevo Chofer</a></li>
-                <li><a href="index.php?accion=registroCliente">Registrar Nuevo Cliente</li>
+                <li><a href="index.php?accion=registroCliente">Registrar Nuevo Cliente</a></li>
                 <li><a href="index.php?accion=registroCiudad">Registrar Nueva Ciudad</li>
                 <li><a href="index.php?accion=registroRol">Registrar Nuevo Rol</li>
                 <li><a href="index.php?accion=registroUsuario">Registrar Nuevo Usuario</li>
@@ -82,7 +82,19 @@
                 <div class="card">
                     <h3>Directorio de Clientes</h3>
                     <p>Visualiza el registro de clientes externos de la empresa.</p>
-                    <a href="index.php?accion=listarClientes" class="btn-card">Ver Clientes</a>
+                    <div class="card-actions">
+                        <a href="index.php?accion=listarClientes" class="btn-card">Ver Clientes</a>
+                        <a href="index.php?accion=registroCliente" class="btn-card btn-secondary-card">Registrar Nuevo</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Registro de Encomiendas</h3>
+                    <p>Registra los paquetes de los clientes con su peso y destino.</p>
+                    <div class="card-actions">
+                        <a href="index.php?accion=listarEncomiendas" class="btn-card">Ver Encomiendas</a>
+                        <a href="index.php?accion=registroEncomienda" class="btn-card btn-secondary-card">Registrar Nueva</a>
+                    </div>
                 </div>
             </section>
         </main>

@@ -125,6 +125,21 @@ switch ($accion) {
         $encomiendaController->listar();
         break;
 
+    case 'editarEncomienda':
+        verificarAcceso([1, 2]);
+        $encomiendaController->editar();
+        break;
+
+    case 'actualizarEncomienda':
+        verificarAcceso([1, 2]);
+        $encomiendaController->actualizar();
+        break;
+
+    case 'eliminarEncomienda':
+        verificarAcceso([1, 2]);
+        $encomiendaController->eliminar();
+        break;
+
     case 'listarVehiculos':
         verificarAcceso([1, 2]);
         $encomiendaController->listar();
@@ -141,4 +156,4 @@ switch ($accion) {
         http_response_code(404);
         echo '<h2>404 - Página no encontrada</h2>';
         break;
-}
+}
