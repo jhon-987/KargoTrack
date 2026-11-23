@@ -1,154 +1,45 @@
 <?php
-
-?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KargoTrack - Sistema de Gestión</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            margin: 0;
-            background: #f5f6fa;
-            color: #333;
-        }
-
-        header {
-            background: #1e293b;
-            color: white;
-            padding: 22px 40px;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        header p {
-            margin-bottom: 0;
-            color: #cbd5e1;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-
-        .container h2 {
-            color: #1e293b;
-            margin-bottom: 25px;
-        }
-
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-        }
-
-        .card h3 {
-            color: #1e40af;
-            margin-top: 0;
-        }
-
-        .card p {
-            color: #64748b;
-            line-height: 1.5;
-        }
-
-        .card a {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 11px 20px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-
-        .card a:hover {
-            background: #1d4ed8;
-        }
-
-        @media (max-width: 650px) {
-            .menu {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<header>
-    <h1>KargoTrack</h1>
-    <p>Sistema de gestión de encomiendas y transporte</p>
-</header>
-
-<div class="container">
-
-    <h2>Panel de Gestión</h2>
-
-    <div class="menu">
-
-        <div class="card">
-            <h3>Gestión de Ciudades</h3>
-            <p>Registro y consulta de ciudades y departamentos.</p>
-            <a href="app/views/ciudades.php">Ingresar</a>
-        </div>
-
-        <div class="card">
-            <h3>Gestión de Envíos</h3>
-            <p>Programación y consulta de envíos y transporte.</p>
-            <a href="app/views/envios.php">Ingresar</a>
-        </div>
-
-    </div>
-
-</div>
-
-</body>
-</html>
-<?php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once __DIR__ . '/app/config/Conexion.php';
 require_once __DIR__ . '/app/controllers/UsuarioController.php';
 require_once __DIR__ . '/app/controllers/RolController.php';
 require_once __DIR__ . '/app/controllers/ClienteController.php';
 require_once __DIR__ . '/app/controllers/EncomiendaController.php';
 
-require_once __DIR__ . '/app/config/Conexion.php';
-
 $rolController = new RolController();
 $usuarioController = new UsuarioController();
 $clienteController = new ClienteController();
 
+$conexion = Conexion::getConnection();
+$encomiendaController = new EncomiendaController($conexion);
+
 $accion = $_GET['accion'] ?? $_GET['action'] ?? 'inicio';
 
+function verificarAcceso($rolesPermitidos = [1, 2]) {
+    // Verificar si el usuario ha iniciado sesión
+    if (!isset($_SESSION['idUsuario'])) {
+        header('Location: index.php?accion=iniciarSesion');
+        exit();
+    }
+    // Verificar si el rol del usuario está permitido
+    if (!in_array($_SESSION['idRol'] ?? null, $rolesPermitidos)) {
+        http_response_code(403);
+        echo "<h3>Acceso Denegado. No tienes permisos para ver esta sección.</h3>";
+        exit();
+    }
+}
+
 switch ($accion) {
+    // RUTAS PÚBLICAS (No requieren sesión)
     case 'inicio':
         require __DIR__ . '/app/views/public/inicio.php';
         break;
 
-    case 'login':
     case 'iniciarSesion':
+    case 'login':
         $usuarioController->login();
         break;
 
@@ -156,93 +47,113 @@ switch ($accion) {
         require __DIR__ . '/app/views/public/consultar_tracking.php';
         break;
 
-    case 'formularioCliente':
-    case 'registro_cliente':
-        $clienteController->formulario();
-        break;
-
-    case 'guardarCliente':
-    case 'guardar_cliente':
-        $clienteController->guardar();
-        break;
-
-    case 'listarClientes':
-    case 'listar_clientes':
-        $clienteController->listar();
-        break;
-
-    case 'editarCliente':
-        $clienteController->editar();
-        break;
-
-    case 'actualizarCliente':
-        $clienteController->actualizar();
-        break;
-
-    case 'eliminarCliente':
-        $clienteController->eliminar();
-        break;
-
-    case 'formularioUsuario':
-        $usuarioController->registro();
-        break;
-
-    case 'guardarUsuario':
-        $usuarioController->guardar();
-        break;
-
-    case 'listarUsuarios':
-        $usuarioController->listar();
-        break;
-
-    case 'listarRoles':
-        $rolController->listar();
-        break;
-
-    case 'registro_encomienda':
-    case 'guardar_encomienda':
-    case 'listar_encomiendas':
-        $conexion = Conexion::getConnection();
-        $encomiendaController = new EncomiendaController($conexion);
-
-        if ($accion === 'registro_encomienda') {
-            $encomiendaController->mostrarFormulario();
-        } elseif ($accion === 'guardar_encomienda') {
-            $encomiendaController->guardar();
-        } else {
-            $encomiendaController->listar();
-        }
-        break;
-
+    // DASHBOARDS POR ROL
     case 'dashboardAdmin':
-        if (!isset($_SESSION['idUsuario']) || ($_SESSION['idRol'] ?? null) != 1) {
-            header('Location: index.php?accion=login');
-            exit();
-        }
-
+        verificarAcceso([1]);
         require __DIR__ . '/app/views/dashboard/admin.php';
         break;
 
     case 'dashboardOperador':
-        if (!isset($_SESSION['idUsuario']) || ($_SESSION['idRol'] ?? null) != 2) {
-            header('Location: index.php?accion=login');
-            exit();
-        }
-
+        verificarAcceso([2]);
         require __DIR__ . '/app/views/dashboard/operador.php';
         break;
 
-    case 'dashboardCliente':
-        require __DIR__ . '/app/views/dashboard/cliente.php';
+    // MÓDULOS DE ADMINISTRADOR (Solo idRol = 1)
+    case 'formularioUsuario':
+        verificarAcceso([1]);
+        $usuarioController->registro();
         break;
 
+    case 'guardarUsuario':
+        verificarAcceso([1]);
+        $usuarioController->guardar();
+        break;
+
+    case 'listarUsuarios':
+        verificarAcceso([1]);
+        $usuarioController->listar();
+        break;
+
+    case 'listarRoles':
+        verificarAcceso([1]);
+        $rolController->listar();
+        break;
+
+    // MÓDULOS OPERATIVOS (Admin y Operador)
+    case 'registroCliente':
+        verificarAcceso([1, 2]);
+        $clienteController->formulario();
+        break;
+
+    case 'guardarCliente':
+        verificarAcceso([1, 2]);
+        $clienteController->guardar();
+        break;
+
+    case 'listarClientes':
+        verificarAcceso([1, 2]);
+        $clienteController->listar();
+        break;
+
+    case 'editarCliente':
+        verificarAcceso([1, 2]);
+        $clienteController->editar();
+        break;
+
+    case 'actualizarCliente':
+        verificarAcceso([1, 2]);
+        $clienteController->actualizar();
+        break;
+
+    case 'eliminarCliente':
+        verificarAcceso([1, 2]);
+        $clienteController->eliminar();
+        break;
+
+    case 'registroEncomienda':
+        verificarAcceso([1, 2]);
+        $encomiendaController->mostrarFormulario();
+        break;
+        
+    case 'guardarEncomienda':
+        verificarAcceso([1, 2]);
+        $encomiendaController->guardar();
+        break;
+        
+    case 'listarEncomiendas':
+        verificarAcceso([1, 2]);
+        $encomiendaController->listar();
+        break;
+
+    case 'editarEncomienda':
+        verificarAcceso([1, 2]);
+        $encomiendaController->editar();
+        break;
+
+    case 'actualizarEncomienda':
+        verificarAcceso([1, 2]);
+        $encomiendaController->actualizar();
+        break;
+
+    case 'eliminarEncomienda':
+        verificarAcceso([1, 2]);
+        $encomiendaController->eliminar();
+        break;
+
+    case 'listarVehiculos':
+        verificarAcceso([1, 2]);
+        $encomiendaController->listar();
+        break;
+
+    // CERRAR SESIÓN
     case 'logout':
+        session_unset();
         session_destroy();
         header('Location: index.php?accion=inicio');
         exit();
 
     default:
         http_response_code(404);
-        echo 'Página no encontrada';
+        echo '<h2>404 - Página no encontrada</h2>';
         break;
-}
+}

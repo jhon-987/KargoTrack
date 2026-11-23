@@ -22,15 +22,15 @@ class Cliente
             ':nombre' => $nombre,
             ':apellido' => $apellido,
             ':documento' => $documento,
-            ':telefono' => $telefono,
-            ':correo' => $correo,
-            ':direccion' => $direccion
+            ':telefono' => $telefono !== '' ? $telefono : null,
+            ':correo' => $correo !== '' ? $correo : null,
+            ':direccion' => $direccion !== '' ? $direccion : null
         ]);
     }
 
     public function listar()
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM clientes");
+        $stmt = $this->pdo->prepare("SELECT * FROM clientes ORDER BY id_cliente DESC");
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -45,6 +45,33 @@ class Cliente
         $stmt->execute([':id' => $id]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Verifica si el documento ya esta registrado (al editar se excluye el mismo cliente)
+    public function existeDocumento($documento, $idExcluir = null)
+    {
+        $sql = "SELECT COUNT(*) FROM clientes WHERE documento = :documento";
+        $params = [':documento' => $documento];
+
+        if ($idExcluir !== null) {
+            $sql .= " AND id_cliente <> :id";
+            $params[':id'] = $idExcluir;
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function tieneEncomiendas($id)
+    {
+        $stmt = $this->pdo->prepare(
+            "SELECT COUNT(*) FROM encomiendas WHERE cliente_id = :id"
+        );
+        $stmt->execute([':id' => $id]);
+
+        return $stmt->fetchColumn() > 0;
     }
 
     public function actualizar($id, $nombre, $apellido, $documento, $telefono, $correo, $direccion)
@@ -65,9 +92,9 @@ class Cliente
             ':nombre' => $nombre,
             ':apellido' => $apellido,
             ':documento' => $documento,
-            ':telefono' => $telefono,
-            ':correo' => $correo,
-            ':direccion' => $direccion
+            ':telefono' => $telefono !== '' ? $telefono : null,
+            ':correo' => $correo !== '' ? $correo : null,
+            ':direccion' => $direccion !== '' ? $direccion : null
         ]);
     }
 

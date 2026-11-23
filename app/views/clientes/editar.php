@@ -2,38 +2,65 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Cliente - KargoTrack</title>
+    <link rel="stylesheet" href="public/css/estilos_clientes.css">
 </head>
-<body>
+<body class="client-form-body">
 
-    <h2>Editar Cliente</h2>
+    <div class="client-form-container">
+        <h2>Editar Cliente</h2>
 
-    <form action="index.php?accion=actualizarCliente" method="POST">
-        <input type="hidden" name="id_cliente" value="<?php echo $c['id_cliente']; ?>">
+        <?php if (!empty($error)): ?>
+            <div class="alert-error"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
 
-        <label>Nombre:</label><br>
-        <input type="text" name="nombre" value="<?php echo htmlspecialchars($c['nombre']); ?>" required><br><br>
+        <form action="index.php?accion=actualizarCliente" method="POST">
+            <input type="hidden" name="id_cliente" value="<?php echo (int) $c['id_cliente']; ?>">
 
-        <label>Apellido:</label><br>
-        <input type="text" name="apellido" value="<?php echo htmlspecialchars($c['apellido']); ?>" required><br><br>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" maxlength="100" required
+                       value="<?php echo htmlspecialchars($c['nombre'] ?? ''); ?>">
+            </div>
 
-        <label>Documento:</label><br>
-        <input type="text" name="documento" value="<?php echo htmlspecialchars($c['documento']); ?>" required><br><br>
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" maxlength="100" required
+                       value="<?php echo htmlspecialchars($c['apellido'] ?? ''); ?>">
+            </div>
 
-        <label>Teléfono:</label><br>
-        <input type="text" name="telefono" value="<?php echo htmlspecialchars($c['telefono']); ?>"><br><br>
+            <div class="form-group">
+                <label for="documento">Documento (DNI 8 dígitos o RUC 11 dígitos):</label>
+                <input type="text" id="documento" name="documento" maxlength="11" pattern="\d{8}|\d{11}" required
+                       value="<?php echo htmlspecialchars($c['documento'] ?? ''); ?>">
+            </div>
 
-        <label>Correo:</label><br>
-        <input type="email" name="correo" value="<?php echo htmlspecialchars($c['correo']); ?>"><br><br>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" maxlength="9" pattern="9\d{8}"
+                       value="<?php echo htmlspecialchars($c['telefono'] ?? ''); ?>">
+            </div>
 
-        <label>Dirección:</label><br>
-        <input type="text" name="direccion" value="<?php echo htmlspecialchars($c['direccion']); ?>"><br><br>
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" maxlength="150"
+                       value="<?php echo htmlspecialchars($c['correo'] ?? ''); ?>">
+            </div>
 
-        <button type="submit">Actualizar Cliente</button>
-    </form>
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" maxlength="255"
+                       value="<?php echo htmlspecialchars($c['direccion'] ?? ''); ?>">
+            </div>
 
-    <br>
-    <a href="index.php?accion=listarClientes">Volver al listado</a>
+            <button type="submit" class="btn-primary">Actualizar Cliente</button>
+        </form>
+
+        <div class="link-container">
+            <a href="index.php?accion=listarClientes" class="link-secondary">← Volver al listado</a>
+        </div>
+    </div>
 
 </body>
 </html>
