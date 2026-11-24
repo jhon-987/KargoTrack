@@ -1,5 +1,5 @@
 <?php
-require_once "app/models/Vehiculo.php";
+require_once __DIR__ . "/../app/models/Vehiculo.php";
 
 $vehiculo = new Vehiculo("DEF-321", "Mercedes Benz Actros", 1);
 try{

@@ -1,6 +1,6 @@
 <?php
-require_once "app/models/Vehiculo.php";
-require_once "app/models/Chofer.php";
+require_once __DIR__ . "/../app/models/Vehiculo.php";
+require_once __DIR__ . "/../app/models/Chofer.php";
 
 // pruebo las funciones nuevas con un vehiculo y un chofer temporales, al final los borro
 

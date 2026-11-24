@@ -9,11 +9,12 @@
     <header class="barra">
         <h1>KargoTrack</h1>
         <nav>
-            <a href="vehiculos.php?accion=registrar">Registrar vehículo</a>
-            <a href="vehiculos.php">Lista de vehículos</a>
-            <a href="vehiculos.php?accion=disponibles">Vehículos disponibles</a>
-            <a href="choferes.php?accion=registrar">Registrar chofer</a>
-            <a href="choferes.php">Lista de choferes</a>
+            <a href="index.php?accion=<?php echo ($_SESSION["idRol"] ?? 1) == 1 ? "dashboardAdmin" : "dashboardOperador"; ?>">Panel principal</a>
+            <a href="index.php?accion=registroVehiculo">Registrar vehículo</a>
+            <a href="index.php?accion=listarVehiculos">Lista de vehículos</a>
+            <a href="index.php?accion=vehiculosDisponibles">Vehículos disponibles</a>
+            <a href="index.php?accion=registroChofer">Registrar chofer</a>
+            <a href="index.php?accion=listarChoferes">Lista de choferes</a>
         </nav>
     </header>
 
@@ -26,9 +27,9 @@
 
         <?php if(!$vehiculo){ ?>
             <p class="alerta-error">No se encontró el vehículo que quieres editar</p>
-            <a href="vehiculos.php">Volver a la lista de vehículos</a>
+            <a href="index.php?accion=listarVehiculos">Volver a la lista de vehículos</a>
         <?php }else{ ?>
-            <form method="post" action="vehiculos.php?accion=editar&id=<?php echo $vehiculo["id"]; ?>" class="tarjeta formulario">
+            <form method="post" action="index.php?accion=editarVehiculo&id=<?php echo $vehiculo["id"]; ?>" class="tarjeta formulario">
                 <div class="campo">
                     <label>ID</label>
                     <input type="text" value="<?php echo $vehiculo["id"]; ?>" disabled>

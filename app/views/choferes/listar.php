@@ -9,11 +9,12 @@
     <header class="barra">
         <h1>KargoTrack</h1>
         <nav>
-            <a href="vehiculos.php?accion=registrar">Registrar vehículo</a>
-            <a href="vehiculos.php">Lista de vehículos</a>
-            <a href="vehiculos.php?accion=disponibles">Vehículos disponibles</a>
-            <a href="choferes.php?accion=registrar">Registrar chofer</a>
-            <a href="choferes.php">Lista de choferes</a>
+            <a href="index.php?accion=<?php echo ($_SESSION["idRol"] ?? 1) == 1 ? "dashboardAdmin" : "dashboardOperador"; ?>">Panel principal</a>
+            <a href="index.php?accion=registroVehiculo">Registrar vehículo</a>
+            <a href="index.php?accion=listarVehiculos">Lista de vehículos</a>
+            <a href="index.php?accion=vehiculosDisponibles">Vehículos disponibles</a>
+            <a href="index.php?accion=registroChofer">Registrar chofer</a>
+            <a href="index.php?accion=listarChoferes">Lista de choferes</a>
         </nav>
     </header>
 
@@ -38,8 +39,8 @@
                     <td><?php echo htmlspecialchars($c["nombre"]); ?></td>
                     <td><?php echo htmlspecialchars($c["licencia"]); ?></td>
                     <td>
-                        <a href="choferes.php?accion=editar&id=<?php echo $c["id"]; ?>" class="btn btn-chico">Editar</a>
-                        <form method="post" action="choferes.php?accion=eliminar" class="en-linea" onsubmit="return confirm('¿Seguro que quieres eliminar este chofer?');">
+                        <a href="index.php?accion=editarChofer&id=<?php echo $c["id"]; ?>" class="btn btn-chico">Editar</a>
+                        <form method="post" action="index.php?accion=eliminarChofer" class="en-linea" onsubmit="return confirm('¿Seguro que quieres eliminar este chofer?');">
                             <input type="hidden" name="id" value="<?php echo $c["id"]; ?>">
                             <input type="submit" value="Eliminar" class="btn btn-chico btn-eliminar">
                         </form>
