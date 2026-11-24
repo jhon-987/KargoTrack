@@ -23,12 +23,11 @@ $encomiendaController = new EncomiendaController($conexion);
 $accion = $_GET['accion'] ?? $_GET['action'] ?? 'inicio';
 
 function verificarAcceso($rolesPermitidos = [1, 2]) {
-    // Verificar si el usuario ha iniciado sesión
     if (!isset($_SESSION['idUsuario'])) {
         header('Location: index.php?accion=iniciarSesion');
         exit();
     }
-    // Verificar si el rol del usuario está permitido
+    
     if (!in_array($_SESSION['idRol'] ?? null, $rolesPermitidos)) {
         http_response_code(403);
         echo "<h3>Acceso Denegado. No tienes permisos para ver esta sección.</h3>";
@@ -37,7 +36,7 @@ function verificarAcceso($rolesPermitidos = [1, 2]) {
 }
 
 switch ($accion) {
-    // RUTAS PÚBLICAS (No requieren sesión)
+    // RUTAS PÚBLICAS
     case 'inicio':
         require __DIR__ . '/app/views/public/inicio.php';
         break;
@@ -45,10 +44,6 @@ switch ($accion) {
     case 'iniciarSesion':
     case 'login':
         $usuarioController->login();
-        break;
-
-    case 'consultarTracking':
-        require __DIR__ . '/app/views/public/consultar_tracking.php';
         break;
 
     // DASHBOARDS POR ROL
@@ -64,6 +59,7 @@ switch ($accion) {
 
     // MÓDULOS DE ADMINISTRADOR (Solo idRol = 1)
     case 'formularioUsuario':
+    case 'registroUsuario':
         verificarAcceso([1]);
         $usuarioController->registro();
         break;
@@ -79,6 +75,7 @@ switch ($accion) {
         break;
 
     case 'listarRoles':
+    case 'registroRol':
         verificarAcceso([1]);
         $rolController->listar();
         break;
@@ -168,7 +165,6 @@ switch ($accion) {
 
     case 'historialSeguimiento':
     case 'consultarTracking':
-        // consultarTracking es la consulta pública, no pide sesión
         if ($accion === 'historialSeguimiento') {
             verificarAcceso([1, 2]);
         }
