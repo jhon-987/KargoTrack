@@ -144,6 +144,47 @@ switch ($accion) {
         $encomiendaController->eliminar();
         break;
 
+    // MÓDULO DE CIUDADES Y ENVÍOS
+    case 'listarCiudades':
+    case 'registroCiudad':
+        verificarAcceso([1, 2]);
+        require_once __DIR__ . '/app/controllers/CiudadController.php';
+        $ciudadController = new CiudadController();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $ciudadController->registrar(trim($_POST['nombre']), trim($_POST['departamento']));
+            header('Location: index.php?accion=listarCiudades');
+            exit();
+        }
+        $ciudades = $ciudadController->listar();
+        require __DIR__ . '/app/views/ciudades/gestionar.php';
+        break;
+
+    case 'listarEnvios':
+    case 'registroEnvio':
+    case 'registroRuta':
+        verificarAcceso([1, 2]);
+        require_once __DIR__ . '/app/controllers/EnvioController.php';
+        require_once __DIR__ . '/app/controllers/CiudadController.php';
+        $envioController = new EnvioController();
+        $ciudadController = new CiudadController();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $envioController->programarEnvio(
+                $_POST['id_encomienda'],
+                $_POST['id_ciudad_origen'],
+                $_POST['id_ciudad_destino'],
+                $_POST['id_vehiculo'],
+                $_POST['id_chofer'],
+                $_POST['fecha_salida'],
+                $_POST['fecha_llegada']
+            );
+            header('Location: index.php?accion=listarEnvios');
+            exit();
+        }
+        $envios = $envioController->listar();
+        $ciudades = $ciudadController->listar();
+        require __DIR__ . '/app/views/envios/gestionar.php';
+        break;
+
     // MÓDULO DE VEHÍCULOS Y CHOFERES
     case 'listarVehiculos':
         verificarAcceso([1, 2]);
