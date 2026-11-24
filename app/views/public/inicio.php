@@ -44,17 +44,17 @@
             
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="icon"></div>
+                    <div class="icon">🚚</div>
                     <h3>Flota Moderna</h3>
                     <p>Contamos con vehículos de carga pesada y ligera en óptimas condiciones para asegurar que tu encomienda viaje segura.</p>
                 </div>
                 <div class="service-card">
-                    <div class="icon"></div>
+                    <div class="icon">⏱️</div>
                     <h3>Entregas Puntuales</h3>
                     <p>Planificamos nuestras rutas estratégicamente entre ciudades para cumplir con los tiempos de llegada establecidos.</p>
                 </div>
                 <div class="service-card">
-                    <div class="icon"></div>
+                    <div class="icon">📍</div>
                     <h3>Tracking 24/7</h3>
                     <p>Nuestro sistema te permite monitorear desde que el paquete sale de origen hasta que es recibido por el destinatario.</p>
                 </div>
@@ -65,6 +65,13 @@
             <div class="coverage-content">
                 <h2>Conectamos Ciudades</h2>
                 <p>Transportamos tus paquetes a través de las principales rutas del país. Nuestros operadores registran cada punto de control para que nunca pierdas de vista tu encomienda.</p>
+                <?php if (!empty($ciudades)) { ?>
+                <ul class="ciudades-lista">
+                    <?php foreach ($ciudades as $ciudad) { ?>
+                    <li><?php echo htmlspecialchars($ciudad['nombre']); ?> <span><?php echo htmlspecialchars($ciudad['departamento']); ?></span></li>
+                    <?php } ?>
+                </ul>
+                <?php } ?>
             </div>
         </section>
     </main>

@@ -38,6 +38,12 @@ function verificarAcceso($rolesPermitidos = [1, 2]) {
 switch ($accion) {
     // RUTAS PÚBLICAS
     case 'inicio':
+        require_once __DIR__ . '/app/models/Ciudad.php';
+        try {
+            $ciudades = (new Ciudad())->listar();
+        } catch (PDOException $e) {
+            $ciudades = [];
+        }
         require __DIR__ . '/app/views/public/inicio.php';
         break;
 
