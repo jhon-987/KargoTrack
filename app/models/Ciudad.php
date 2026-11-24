@@ -1,15 +1,13 @@
-
 <?php
 
-require_once __DIR__ . '/../config/conexion.php';
+require_once __DIR__ . '/../config/Conexion.php';
 
 class Ciudad {
 
     private $conexion;
 
     public function __construct() {
-        $db = new Conexion();
-        $this->conexion = $db->conectar();
+        $this->conexion = Conexion::conectar();
     }
 
     // Registra una ciudad en la base de datos

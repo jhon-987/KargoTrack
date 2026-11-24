@@ -1,32 +1,3 @@
-
-
-<?php
-
-require_once __DIR__ . '/../controllers/CiudadController.php';
-
-$controller = new CiudadController();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = trim($_POST['nombre']);
-    $departamento = trim($_POST['departamento']);
-
-    $controller->registrar($nombre, $departamento);
-
-    header('Location: ciudades.php');
-    exit;
-}
-
-$ciudades = $controller->listar();
-
-?>
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -123,7 +94,7 @@ $ciudades = $controller->listar();
     <div class="card">
         <h3>Registrar Ciudad</h3>
 
-        <form method="POST">
+        <form method="POST" action="index.php?accion=registroCiudad">
             <div class="form-group">
                 <label>Nombre de ciudad</label>
                 <input type="text" name="nombre" placeholder="Ingrese el nombre de la ciudad" required>

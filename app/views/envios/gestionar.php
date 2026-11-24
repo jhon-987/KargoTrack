@@ -1,34 +1,3 @@
-
-
-<?php
-
-require_once __DIR__ . '/../controllers/EnvioController.php';
-require_once __DIR__ . '/../controllers/CiudadController.php';
-
-$controller = new EnvioController();
-$ciudadController = new CiudadController();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $controller->programarEnvio(
-        $_POST['id_encomienda'],
-        $_POST['id_ciudad_origen'],
-        $_POST['id_ciudad_destino'],
-        $_POST['id_vehiculo'],
-        $_POST['id_chofer'],
-        $_POST['fecha_salida'],
-        $_POST['fecha_llegada']
-    );
-
-    header('Location: envios.php');
-    exit;
-}
-
-$envios = $controller->listar();
-$ciudades = $ciudadController->listar();
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -142,7 +111,7 @@ $ciudades = $ciudadController->listar();
     <div class="card">
         <h3>Programar Envío</h3>
 
-        <form method="POST">
+        <form method="POST" action="index.php?accion=registroEnvio">
             <div class="form-grid">
 
                 <div class="form-group">

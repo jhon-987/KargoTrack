@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../config/Conexion.php';
 
 require_once __DIR__ . '/../models/Usuario.php';
 require_once __DIR__ . '/../models/Rol.php';
@@ -7,6 +8,7 @@ class UsuarioController {
 
     private $usuario;
     private $rol;
+
 
     public function __construct() {
         $this->usuario = new Usuario();

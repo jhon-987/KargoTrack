@@ -1,5 +1,5 @@
 <?php
-require_once "app/models/Chofer.php";
+require_once __DIR__ . "/../app/models/Chofer.php";
 
 $chofer = new Chofer("Jorge Tarazona Leon", "Q83451276");
 try{

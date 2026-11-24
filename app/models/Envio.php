@@ -1,15 +1,13 @@
-
 <?php
 
-require_once __DIR__ . '/../config/conexion.php';
+require_once __DIR__ . '/../config/Conexion.php';
 
 class Envio {
 
     private $conexion;
 
     public function __construct() {
-        $db = new Conexion();
-        $this->conexion = $db->conectar();
+        $this->conexion = Conexion::conectar();
     }
 
     // Programa un envio en la base de datos
