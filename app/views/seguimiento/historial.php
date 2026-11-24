@@ -10,6 +10,94 @@ $idEncomienda = $idEncomienda ?? 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de seguimiento - KargoTrack</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .contenedor {
+            max-width: 950px;
+            margin: 25px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #00000015;
+        }
+
+        h2 {
+            color: #173b68;
+            text-align: center;
+        }
+
+        p { color: #666; text-align: center; }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        input, button {
+            padding: 12px;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #1764aa;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tabla {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #173b68;
+            color: white;
+        }
+
+        tr:hover { background: #f5f8fc; }
+
+        .vacio {
+            padding: 20px;
+            text-align: center;
+            color: #777;
+        }
+
+        a {
+            color: #1764aa;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            form { flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
 
@@ -17,7 +105,8 @@ $idEncomienda = $idEncomienda ?? 0;
     <h2>KargoTrack</h2>
     <p>Historial de seguimiento de encomiendas</p>
 
-    <form method="GET" action="">
+    <form method="GET" action="index.php">
+        <input type="hidden" name="accion" value="<?php echo htmlspecialchars($accion ?? "historialSeguimiento"); ?>">
         <input
             type="number"
             name="id_encomienda"
@@ -63,14 +152,13 @@ $idEncomienda = $idEncomienda ?? 0;
     </div>
 
     <p>
-    <a href="seguimiento.php">Registrar nuevo seguimiento</a>
+    <a href="index.php?accion=registroTracking">Registrar nuevo seguimiento</a>
 </p>
 
 <p>
-    <a href="modulo5.php">Volver al menú del módulo 5</a>
+    <a href="index.php?accion=listarSeguimiento">Volver al menú del módulo 5</a>
 </p>
 </div>
 
 </body>
 </html>
-

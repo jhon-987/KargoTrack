@@ -110,7 +110,8 @@ $mensajeError = $mensajeError ?? '';
     <h2>KargoTrack</h2>
     <p>Consulta de entregas de encomiendas</p>
 
-    <form method="GET" action="">
+    <form method="GET" action="index.php">
+        <input type="hidden" name="accion" value="consultarEntrega">
         <input
             type="number"
             name="id_encomienda"
@@ -160,11 +161,11 @@ $mensajeError = $mensajeError ?? '';
     </div>
 
     <p>
-    <a href="entregas.php">Registrar nueva entrega</a>
+    <a href="index.php?accion=registroEntrega">Registrar nueva entrega</a>
 </p>
 
 <p>
-    <a href="modulo5.php">Volver al menú del módulo 5</a>
+    <a href="index.php?accion=listarSeguimiento">Volver al menú del módulo 5</a>
 </p>
 </div>
 

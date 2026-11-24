@@ -9,6 +9,73 @@ $mensaje = $mensaje ?? '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seguimiento de Encomiendas - KargoTrack</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .contenedor {
+            max-width: 550px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #00000015;
+        }
+
+        h2 {
+            color: #173b68;
+            text-align: center;
+        }
+
+        p {
+            color: #666;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 7px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        button {
+            margin-top: 25px;
+            background: #1764aa;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #104b80;
+        }
+
+        .mensaje {
+            background: #e9f4ff;
+            padding: 12px;
+            border-radius: 7px;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,7 +90,7 @@ $mensaje = $mensaje ?? '';
         </div>
     <?php endif; ?>
 
-    <form method="POST" action="">
+    <form method="POST" action="index.php?accion=registroTracking">
         <label for="id_encomienda">ID de encomienda</label>
         <input
             type="number"
@@ -60,10 +127,9 @@ $mensaje = $mensaje ?? '';
         </button>
     </form>
     <p>
-        <a href="modulo5.php">Volver al menú del módulo 5</a>
+        <a href="index.php?accion=listarSeguimiento">Volver al menú del módulo 5</a>
     </p>
 </div>
 
 </body>
 </html>
-
