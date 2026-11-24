@@ -1,6 +1,6 @@
 <?php
 
-require_once "app/config/Conn.php";
+require_once __DIR__ . "/../config/Conexion.php";
 
 class Chofer{
     private $id;
@@ -15,46 +15,42 @@ class Chofer{
 
     // registra al chofer con su nombre y su licencia, devuelve true cuando se guarda
     public function registrar(){
-        $conn = new Conn();
-        $conexion = $conn->conectar();
+        $conexion = Conexion::conectar();
         $sql = "insert into chofer (nombre, licencia) values (:nombre, :licencia)";
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':nombre', $this->nombre);
         $stmt->bindParam(':licencia', $this->licencia);
         $resultado = $stmt->execute();
-        $conn->cerrar();
+        $conexion = null;
         return $resultado;
     }
 
     // lista a todos los choferes registrados, no recibe parametros y devuelve un arreglo
     public function listar(){
-        $conn = new Conn();
-        $conexion = $conn->conectar();
+        $conexion = Conexion::conectar();
         $sql = "select id, nombre, licencia from chofer order by id";
         $stmt = $conexion->prepare($sql);
         $stmt->execute();
         $choferes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $conn->cerrar();
+        $conexion = null;
         return $choferes;
     }
 
     // busca un chofer por su id, devuelve la fila o false si no existe
     public function buscarPorId($id){
-        $conn = new Conn();
-        $conexion = $conn->conectar();
+        $conexion = Conexion::conectar();
         $sql = "select id, nombre, licencia from chofer where id = :id";
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $chofer = $stmt->fetch(PDO::FETCH_ASSOC);
-        $conn->cerrar();
+        $conexion = null;
         return $chofer;
     }
 
     // cambia el nombre y la licencia del chofer, devuelve cuantas filas se modificaron
     public function actualizar(){
-        $conn = new Conn();
-        $conexion = $conn->conectar();
+        $conexion = Conexion::conectar();
         $sql = "update chofer set nombre = :nombre, licencia = :licencia where id = :id";
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':nombre', $this->nombre);
@@ -62,20 +58,19 @@ class Chofer{
         $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
         $stmt->execute();
         $filas = $stmt->rowCount();
-        $conn->cerrar();
+        $conexion = null;
         return $filas;
     }
 
     // borra al chofer con ese id, devuelve 1 si lo borro o 0 si no existia
     public function eliminar($id){
-        $conn = new Conn();
-        $conexion = $conn->conectar();
+        $conexion = Conexion::conectar();
         $sql = "delete from chofer where id = :id";
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $filas = $stmt->rowCount();
-        $conn->cerrar();
+        $conexion = null;
         return $filas;
     }
 }
