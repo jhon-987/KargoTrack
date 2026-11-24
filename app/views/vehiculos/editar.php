@@ -6,42 +6,55 @@
     <link rel="stylesheet" href="public/css/flota.css">
 </head>
 <body>
-    <nav>
-        <a href="vehiculos.php?accion=registrar">Registrar vehículo</a> |
-        <a href="vehiculos.php">Lista de vehículos</a> |
-        <a href="vehiculos.php?accion=disponibles">Vehículos disponibles</a> |
-        <a href="choferes.php?accion=registrar">Registrar chofer</a> |
-        <a href="choferes.php">Lista de choferes</a>
-    </nav>
+    <header class="barra">
+        <h1>KargoTrack</h1>
+        <nav>
+            <a href="vehiculos.php?accion=registrar">Registrar vehículo</a>
+            <a href="vehiculos.php">Lista de vehículos</a>
+            <a href="vehiculos.php?accion=disponibles">Vehículos disponibles</a>
+            <a href="choferes.php?accion=registrar">Registrar chofer</a>
+            <a href="choferes.php">Lista de choferes</a>
+        </nav>
+    </header>
 
-    <h2>Editar vehículo</h2>
+    <div class="contenedor">
+        <h2>Editar vehículo</h2>
 
-    <?php if(!empty($mensaje)){ ?>
-        <p class="mensaje"><?php echo $mensaje; ?></p>
-    <?php } ?>
+        <?php if(!empty($mensaje)){ ?>
+            <p class="<?php echo strpos($mensaje, "correctamente") !== false ? "alerta-ok" : "alerta-error"; ?>"><?php echo $mensaje; ?></p>
+        <?php } ?>
 
-    <?php if(!$vehiculo){ ?>
-        <p class="mensaje">No se encontró el vehículo que quieres editar</p>
-        <a href="vehiculos.php">Volver a la lista de vehículos</a>
-    <?php }else{ ?>
-        <form method="post" action="vehiculos.php?accion=editar&id=<?php echo $vehiculo["id"]; ?>">
-            <label>ID</label><br>
-            <input type="text" value="<?php echo $vehiculo["id"]; ?>" disabled><br>
+        <?php if(!$vehiculo){ ?>
+            <p class="alerta-error">No se encontró el vehículo que quieres editar</p>
+            <a href="vehiculos.php">Volver a la lista de vehículos</a>
+        <?php }else{ ?>
+            <form method="post" action="vehiculos.php?accion=editar&id=<?php echo $vehiculo["id"]; ?>" class="tarjeta formulario">
+                <div class="campo">
+                    <label>ID</label>
+                    <input type="text" value="<?php echo $vehiculo["id"]; ?>" disabled>
+                </div>
 
-            <label>Placa</label><br>
-            <input type="text" name="placa" value="<?php echo htmlspecialchars($vehiculo["placa"]); ?>" maxlength="7"><br>
+                <div class="campo">
+                    <label>Placa</label>
+                    <input type="text" name="placa" value="<?php echo htmlspecialchars($vehiculo["placa"]); ?>" maxlength="7">
+                </div>
 
-            <label>Modelo</label><br>
-            <input type="text" name="modelo" value="<?php echo htmlspecialchars($vehiculo["modelo"]); ?>" maxlength="60"><br>
+                <div class="campo">
+                    <label>Modelo</label>
+                    <input type="text" name="modelo" value="<?php echo htmlspecialchars($vehiculo["modelo"]); ?>" maxlength="60">
+                </div>
 
-            <label>Disponible</label><br>
-            <select name="disponible">
-                <option value="1" <?php if($vehiculo["disponible"] == 1){ echo "selected"; } ?>>Sí</option>
-                <option value="0" <?php if($vehiculo["disponible"] == 0){ echo "selected"; } ?>>No</option>
-            </select><br><br>
+                <div class="campo">
+                    <label>Disponible</label>
+                    <select name="disponible">
+                        <option value="1" <?php if($vehiculo["disponible"] == 1){ echo "selected"; } ?>>Sí</option>
+                        <option value="0" <?php if($vehiculo["disponible"] == 0){ echo "selected"; } ?>>No</option>
+                    </select>
+                </div>
 
-            <input type="submit" value="Guardar cambios">
-        </form>
-    <?php } ?>
+                <input type="submit" value="Guardar cambios" class="btn">
+            </form>
+        <?php } ?>
+    </div>
 </body>
 </html>

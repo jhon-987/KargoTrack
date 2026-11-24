@@ -6,34 +6,45 @@
     <link rel="stylesheet" href="public/css/flota.css">
 </head>
 <body>
-    <nav>
-        <a href="vehiculos.php?accion=registrar">Registrar vehículo</a> |
-        <a href="vehiculos.php">Lista de vehículos</a> |
-        <a href="vehiculos.php?accion=disponibles">Vehículos disponibles</a> |
-        <a href="choferes.php?accion=registrar">Registrar chofer</a> |
-        <a href="choferes.php">Lista de choferes</a>
-    </nav>
+    <header class="barra">
+        <h1>KargoTrack</h1>
+        <nav>
+            <a href="vehiculos.php?accion=registrar">Registrar vehículo</a>
+            <a href="vehiculos.php">Lista de vehículos</a>
+            <a href="vehiculos.php?accion=disponibles">Vehículos disponibles</a>
+            <a href="choferes.php?accion=registrar">Registrar chofer</a>
+            <a href="choferes.php">Lista de choferes</a>
+        </nav>
+    </header>
 
-    <h2>Registrar vehículo</h2>
+    <div class="contenedor">
+        <h2>Registrar vehículo</h2>
 
-    <?php if(!empty($mensaje)){ ?>
-        <p class="mensaje"><?php echo $mensaje; ?></p>
-    <?php } ?>
+        <?php if(!empty($mensaje)){ ?>
+            <p class="<?php echo strpos($mensaje, "correctamente") !== false ? "alerta-ok" : "alerta-error"; ?>"><?php echo $mensaje; ?></p>
+        <?php } ?>
 
-    <form method="post" action="vehiculos.php?accion=registrar">
-        <label>Placa</label><br>
-        <input type="text" name="placa" placeholder="ABC-123" maxlength="7"><br>
+        <form method="post" action="vehiculos.php?accion=registrar" class="tarjeta formulario">
+            <div class="campo">
+                <label>Placa</label>
+                <input type="text" name="placa" placeholder="ABC-123" maxlength="7">
+            </div>
 
-        <label>Modelo</label><br>
-        <input type="text" name="modelo" placeholder="Volvo FH 460" maxlength="60"><br>
+            <div class="campo">
+                <label>Modelo</label>
+                <input type="text" name="modelo" placeholder="Volvo FH 460" maxlength="60">
+            </div>
 
-        <label>Disponible</label><br>
-        <select name="disponible">
-            <option value="1">Sí</option>
-            <option value="0">No</option>
-        </select><br><br>
+            <div class="campo">
+                <label>Disponible</label>
+                <select name="disponible">
+                    <option value="1">Sí</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
 
-        <input type="submit" value="Guardar">
-    </form>
+            <input type="submit" value="Guardar" class="btn">
+        </form>
+    </div>
 </body>
 </html>
