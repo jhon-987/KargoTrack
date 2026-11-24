@@ -144,6 +144,85 @@ switch ($accion) {
         $encomiendaController->eliminar();
         break;
 
+    // MÓDULO DE SEGUIMIENTO Y ENTREGAS
+    case 'listarSeguimiento':
+        verificarAcceso([1, 2]);
+        require __DIR__ . '/app/views/seguimiento/menu.php';
+        break;
+
+    case 'registroTracking':
+        verificarAcceso([1, 2]);
+        require_once __DIR__ . '/app/controllers/SeguimientoController.php';
+        $mensaje = '';
+        try {
+            $controlador = new SeguimientoController($conexion);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $mensaje = $controlador->registrar($_POST);
+            }
+        } catch (PDOException $e) {
+            http_response_code(500);
+            $mensaje = 'Error al conectar con la base de datos.';
+        }
+        require __DIR__ . '/app/views/seguimiento/registrar.php';
+        break;
+
+    case 'historialSeguimiento':
+    case 'consultarTracking':
+        // consultarTracking es la consulta pública, no pide sesión
+        if ($accion === 'historialSeguimiento') {
+            verificarAcceso([1, 2]);
+        }
+        require_once __DIR__ . '/app/controllers/SeguimientoController.php';
+        $historial = [];
+        $idEncomienda = filter_var($_GET['id_encomienda'] ?? null, FILTER_VALIDATE_INT);
+        $idEncomienda = $idEncomienda ?: 0;
+        try {
+            $controlador = new SeguimientoController($conexion);
+            if ($idEncomienda > 0) {
+                $historial = $controlador->historial($idEncomienda);
+            }
+        } catch (PDOException $e) {
+            http_response_code(500);
+            $mensajeError = 'No se pudo consultar el historial.';
+        }
+        require __DIR__ . '/app/views/seguimiento/historial.php';
+        break;
+
+    case 'registroEntrega':
+        verificarAcceso([1, 2]);
+        require_once __DIR__ . '/app/controllers/EntregaController.php';
+        $mensaje = '';
+        try {
+            $controlador = new EntregaController($conexion);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $mensaje = $controlador->registrar($_POST);
+            }
+        } catch (PDOException $e) {
+            http_response_code(500);
+            $mensaje = 'Error al conectar o guardar en la base de datos.';
+        }
+        require __DIR__ . '/app/views/entregas/registrar.php';
+        break;
+
+    case 'consultarEntrega':
+        verificarAcceso([1, 2]);
+        require_once __DIR__ . '/app/controllers/EntregaController.php';
+        $datosEntrega = false;
+        $mensajeError = '';
+        $idEncomienda = filter_var($_GET['id_encomienda'] ?? null, FILTER_VALIDATE_INT);
+        $idEncomienda = $idEncomienda ?: 0;
+        try {
+            $controlador = new EntregaController($conexion);
+            if ($idEncomienda > 0) {
+                $datosEntrega = $controlador->consultar($idEncomienda);
+            }
+        } catch (PDOException $e) {
+            http_response_code(500);
+            $mensajeError = 'No se pudo consultar la entrega.';
+        }
+        require __DIR__ . '/app/views/entregas/consultar.php';
+        break;
+
     // MÓDULO DE CIUDADES Y ENVÍOS
     case 'listarCiudades':
     case 'registroCiudad':
@@ -257,4 +336,4 @@ switch ($accion) {
         http_response_code(404);
         echo '<h2>404 - Página no encontrada</h2>';
         break;
-}
+}

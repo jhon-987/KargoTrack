@@ -1,4 +1,3 @@
-
 <?php
 
 class Seguimiento
@@ -47,4 +46,3 @@ class Seguimiento
         return $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 }
-

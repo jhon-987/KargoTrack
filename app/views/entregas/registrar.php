@@ -96,7 +96,7 @@ $mensaje = $mensaje ?? '';
         </div>
     <?php endif; ?>
 
-    <form method="POST" action="">
+    <form method="POST" action="index.php?accion=registroEntrega">
         <label for="id_encomienda">ID de encomienda</label>
         <input
             type="number"
@@ -131,14 +131,13 @@ $mensaje = $mensaje ?? '';
     </form>
 
     <p>
-    <a href="seguimiento.php">Ir a seguimiento</a>
+    <a href="index.php?accion=registroTracking">Ir a seguimiento</a>
 </p>
 
 <p>
-    <a href="modulo5.php">Volver al menú del módulo 5</a>
+    <a href="index.php?accion=listarSeguimiento">Volver al menú del módulo 5</a>
 </p>
 </div>
 
 </body>
 </html>
-
