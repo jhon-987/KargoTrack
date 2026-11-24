@@ -18,7 +18,9 @@
             <ul class="sidebar-menu">
                 <li><a href="index.php?accion=dashboardOperador" class="active">Inicio / Resumen</a></li>
                 <li><a href="index.php?accion=listarClientes">Gestión de Clientes</a></li>
+                <li><a href="index.php?accion=registroCliente">Registrar Cliente</a></li>
                 <li><a href="index.php?accion=listarEncomiendas">Registro de Encomiendas</a></li>
+                <li><a href="index.php?accion=registroEncomienda">Registrar Encomienda</a></li>
                 <li><a href="index.php?accion=listarEnvios">Envíos y Rutas</a></li>
                 <li><a href="index.php?accion=listarSeguimiento">Control de Tracking</a></li>
                 <li><a href="index.php?accion=logout" class="logout-link">Cerrar Sesión</a></li>
@@ -35,13 +37,19 @@
                 <div class="card">
                     <h3>Gestión de Clientes</h3>
                     <p>Registra nuevos remitentes y destinatarios para asociarlos a los paquetes.</p>
-                    <a href="index.php?accion=listarClientes" class="btn-card">Ver Directorio</a>
+                    <div class="card-actions">
+                        <a href="index.php?accion=listarClientes" class="btn-card">Ver Directorio</a>
+                        <a href="index.php?accion=registroCliente" class="btn-card btn-secondary-card">Registrar Cliente</a>
+                    </div>
                 </div>
 
                 <div class="card">
                     <h3>Recepción de Encomiendas</h3>
                     <p>Ingresa nuevos paquetes, registra su peso y genera la orden.</p>
-                    <a href="index.php?accion=registroEncomienda" class="btn-card">Gestionar Paquetes</a>
+                    <div class="card-actions">
+                        <a href="index.php?accion=listarEncomiendas" class="btn-card">Ver Encomiendas</a>
+                        <a href="index.php?accion=registroEncomienda" class="btn-card btn-secondary-card">Registrar Encomienda</a>
+                    </div>
                 </div>
 
                 <div class="card">
