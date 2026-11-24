@@ -6,36 +6,48 @@
     <link rel="stylesheet" href="public/css/flota.css">
 </head>
 <body>
-    <nav>
-        <a href="vehiculos.php?accion=registrar">Registrar vehículo</a> |
-        <a href="vehiculos.php">Lista de vehículos</a> |
-        <a href="vehiculos.php?accion=disponibles">Vehículos disponibles</a> |
-        <a href="choferes.php?accion=registrar">Registrar chofer</a> |
-        <a href="choferes.php">Lista de choferes</a>
-    </nav>
+    <header class="barra">
+        <h1>KargoTrack</h1>
+        <nav>
+            <a href="index.php?accion=<?php echo ($_SESSION["idRol"] ?? 1) == 1 ? "dashboardAdmin" : "dashboardOperador"; ?>">Panel principal</a>
+            <a href="index.php?accion=registroVehiculo">Registrar vehículo</a>
+            <a href="index.php?accion=listarVehiculos">Lista de vehículos</a>
+            <a href="index.php?accion=vehiculosDisponibles">Vehículos disponibles</a>
+            <a href="index.php?accion=registroChofer">Registrar chofer</a>
+            <a href="index.php?accion=listarChoferes">Lista de choferes</a>
+        </nav>
+    </header>
 
-    <h2>Editar chofer</h2>
+    <div class="contenedor">
+        <h2>Editar chofer</h2>
 
-    <?php if(!empty($mensaje)){ ?>
-        <p class="mensaje"><?php echo $mensaje; ?></p>
-    <?php } ?>
+        <?php if(!empty($mensaje)){ ?>
+            <p class="<?php echo strpos($mensaje, "correctamente") !== false ? "alerta-ok" : "alerta-error"; ?>"><?php echo $mensaje; ?></p>
+        <?php } ?>
 
-    <?php if(!$chofer){ ?>
-        <p class="mensaje">No se encontró el chofer que quieres editar</p>
-        <a href="choferes.php">Volver a la lista de choferes</a>
-    <?php }else{ ?>
-        <form method="post" action="choferes.php?accion=editar&id=<?php echo $chofer["id"]; ?>">
-            <label>ID</label><br>
-            <input type="text" value="<?php echo $chofer["id"]; ?>" disabled><br>
+        <?php if(!$chofer){ ?>
+            <p class="alerta-error">No se encontró el chofer que quieres editar</p>
+            <a href="index.php?accion=listarChoferes">Volver a la lista de choferes</a>
+        <?php }else{ ?>
+            <form method="post" action="index.php?accion=editarChofer&id=<?php echo $chofer["id"]; ?>" class="tarjeta formulario">
+                <div class="campo">
+                    <label>ID</label>
+                    <input type="text" value="<?php echo $chofer["id"]; ?>" disabled>
+                </div>
 
-            <label>Nombre completo</label><br>
-            <input type="text" name="nombre" value="<?php echo htmlspecialchars($chofer["nombre"]); ?>" maxlength="100"><br>
+                <div class="campo">
+                    <label>Nombre completo</label>
+                    <input type="text" name="nombre" value="<?php echo htmlspecialchars($chofer["nombre"]); ?>" maxlength="100">
+                </div>
 
-            <label>Licencia</label><br>
-            <input type="text" name="licencia" value="<?php echo htmlspecialchars($chofer["licencia"]); ?>" maxlength="9"><br><br>
+                <div class="campo">
+                    <label>Licencia</label>
+                    <input type="text" name="licencia" value="<?php echo htmlspecialchars($chofer["licencia"]); ?>" maxlength="9">
+                </div>
 
-            <input type="submit" value="Guardar cambios">
-        </form>
-    <?php } ?>
+                <input type="submit" value="Guardar cambios" class="btn">
+            </form>
+        <?php } ?>
+    </div>
 </body>
 </html>

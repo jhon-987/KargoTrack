@@ -1,6 +1,6 @@
 <?php
 
-require_once "app/models/Chofer.php";
+require_once __DIR__ . "/../models/Chofer.php";
 
 class ChoferController{
 

@@ -8,10 +8,14 @@ require_once __DIR__ . '/app/controllers/UsuarioController.php';
 require_once __DIR__ . '/app/controllers/RolController.php';
 require_once __DIR__ . '/app/controllers/ClienteController.php';
 require_once __DIR__ . '/app/controllers/EncomiendaController.php';
+require_once __DIR__ . '/app/controllers/VehiculoController.php';
+require_once __DIR__ . '/app/controllers/ChoferController.php';
 
 $rolController = new RolController();
 $usuarioController = new UsuarioController();
 $clienteController = new ClienteController();
+$vehiculoController = new VehiculoController();
+$choferController = new ChoferController();
 
 $conexion = Conexion::getConnection();
 $encomiendaController = new EncomiendaController($conexion);
@@ -140,9 +144,65 @@ switch ($accion) {
         $encomiendaController->eliminar();
         break;
 
+    // MÓDULO DE VEHÍCULOS Y CHOFERES
     case 'listarVehiculos':
         verificarAcceso([1, 2]);
-        $encomiendaController->listar();
+        $vehiculos = $vehiculoController->listar();
+        require __DIR__ . '/app/views/vehiculos/listar.php';
+        break;
+
+    case 'registroVehiculo':
+        verificarAcceso([1, 2]);
+        $mensaje = $vehiculoController->registrar();
+        require __DIR__ . '/app/views/vehiculos/registrar.php';
+        break;
+
+    case 'vehiculosDisponibles':
+        verificarAcceso([1, 2]);
+        $vehiculos = $vehiculoController->listarDisponibles();
+        require __DIR__ . '/app/views/vehiculos/disponibles.php';
+        break;
+
+    case 'editarVehiculo':
+        verificarAcceso([1, 2]);
+        $id = $_GET['id'] ?? '';
+        $mensaje = $vehiculoController->actualizar($id);
+        $vehiculo = $vehiculoController->buscar($id);
+        require __DIR__ . '/app/views/vehiculos/editar.php';
+        break;
+
+    case 'eliminarVehiculo':
+        verificarAcceso([1, 2]);
+        $mensaje = $vehiculoController->eliminar();
+        $vehiculos = $vehiculoController->listar();
+        require __DIR__ . '/app/views/vehiculos/listar.php';
+        break;
+
+    case 'listarChoferes':
+        verificarAcceso([1, 2]);
+        $choferes = $choferController->listar();
+        require __DIR__ . '/app/views/choferes/listar.php';
+        break;
+
+    case 'registroChofer':
+        verificarAcceso([1, 2]);
+        $mensaje = $choferController->registrar();
+        require __DIR__ . '/app/views/choferes/registrar.php';
+        break;
+
+    case 'editarChofer':
+        verificarAcceso([1, 2]);
+        $id = $_GET['id'] ?? '';
+        $mensaje = $choferController->actualizar($id);
+        $chofer = $choferController->buscar($id);
+        require __DIR__ . '/app/views/choferes/editar.php';
+        break;
+
+    case 'eliminarChofer':
+        verificarAcceso([1, 2]);
+        $mensaje = $choferController->eliminar();
+        $choferes = $choferController->listar();
+        require __DIR__ . '/app/views/choferes/listar.php';
         break;
 
     // CERRAR SESIÓN
