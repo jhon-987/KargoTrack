@@ -15,88 +15,71 @@
                 <span>Administración</span>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="index.php?accion=dashboardAdmin" class="active">Inicio / Resumen</a></li>
-                <li><a href="index.php?accion=listarUsuarios">Gestión de Usuarios</a></li>
-                <li><a href="index.php?accion=listarRoles">Gestión de Roles</a></li>
-                <li><a href="index.php?accion=listarClientes">Directorio de Clientes</a></li>
-                <li><a href="index.php?accion=listarCiudades">Gestión de Ciudades</a></li>
-                <li><a href="index.php?accion=listarVehiculos">Flota de Vehículos</a></li>
-                <li><a href="index.php?accion=listarChoferes">Registro de Choferes</a></li>
-                <li><a href="index.php?accion=listarEncomiendas">Registro de Encomiendas</a></li>
-                <li><a href="index.php?accion=listarEnvios">Envíos y Rutas</a></li>
-                <li><a href="index.php?accion=listarSeguimiento">Control de Tracking</a></li>
-                <li><a href="index.php?accion=registroEncomienda">Registrar Nueva Encomienda</a></li>
-                <li><a href="index.php?accion=registroVehiculo">Registrar Nuevo Vehículo</a></li>
-                <li><a href="index.php?accion=registroChofer">Registrar Nuevo Chofer</a></li>
-                <li><a href="index.php?accion=registroCliente">Registrar Nuevo Cliente</a></li>
-                <li><a href="index.php?accion=registroCiudad">Registrar Nueva Ciudad</li>
-                <li><a href="index.php?accion=registroRol">Registrar Nuevo Rol</li>
-                <li><a href="index.php?accion=registroUsuario">Registrar Nuevo Usuario</li>
-                <li><a href="index.php?accion=registroEnvio">Registrar Nuevo Envío</li>
-                <li><a href="index.php?accion=registroTracking">Registrar Nuevo Tracking</li>
-                <li><a href="index.php?accion=registroRuta">Registrar Nueva Ruta</li>
-                <li><a href="index.php?accion=logout" class="logout-link">Cerrar Sesión</a></li>
+                <li><a href="index.php?accion=dashboardAdmin" class="active">Resumen</a></li>
+                <li class="menu-titulo">Operación</li>
+                <li><a href="index.php?accion=listarEncomiendas">Encomiendas</a></li>
+                <li><a href="index.php?accion=listarEnvios">Envíos</a></li>
+                <li><a href="index.php?accion=listarSeguimiento">Seguimiento y entregas</a></li>
+                <li class="menu-titulo">Flota</li>
+                <li><a href="index.php?accion=listarVehiculos">Vehículos</a></li>
+                <li><a href="index.php?accion=listarChoferes">Choferes</a></li>
+                <li class="menu-titulo">Administración</li>
+                <li><a href="index.php?accion=listarClientes">Clientes</a></li>
+                <li><a href="index.php?accion=listarCiudades">Ciudades</a></li>
+                <li><a href="index.php?accion=listarUsuarios">Usuarios</a></li>
+                <li><a href="index.php?accion=listarRoles">Roles</a></li>
             </ul>
+            <div class="sidebar-usuario">
+                <strong><?php echo htmlspecialchars($_SESSION['nombre'] ?? 'Administrador', ENT_QUOTES, 'UTF-8'); ?></strong>
+                <a href="index.php?accion=logout" class="logout-link">Cerrar sesión</a>
+            </div>
         </aside>
 
         <main class="main-content">
             <header class="content-header">
-                <h2>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre'] ?? 'Administrador', ENT_QUOTES, 'UTF-8'); ?></h2>
+                <div>
+                    <h2>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre'] ?? 'Administrador', ENT_QUOTES, 'UTF-8'); ?></h2>
+                    <p class="subtitulo">Así va la operación de la empresa.</p>
+                </div>
                 <span class="badge-admin">Administrador</span>
             </header>
 
-            <section class="cards-grid">
-                <div class="card">
-                    <h3>👥 Control de Personal</h3>
-                    <p>Administra usuarios, registra nuevos operadores y asigna roles.</p>
-                    <div class="card-actions">
-                        <a href="index.php?accion=listarUsuarios" class="btn-card">Ver Usuarios</a>
-                        <a href="index.php?accion=formularioUsuario" class="btn-card btn-secondary-card">Registrar Nuevo</a>
-                    </div>
+            <section class="resumen">
+                <h3>Resumen</h3>
+                <?php if ($resumen) { ?>
+                <div class="resumen-grid">
+                    <a href="index.php?accion=listarEnvios" class="resumen-card">
+                        <span class="resumen-numero"><?php echo (int) $resumen['pendientes']; ?></span>
+                        <span class="resumen-texto">Encomiendas esperando envío</span>
+                        <span class="resumen-link">Programar envío →</span>
+                    </a>
+                    <a href="index.php?accion=listarSeguimiento" class="resumen-card">
+                        <span class="resumen-numero"><?php echo (int) $resumen['en_curso']; ?></span>
+                        <span class="resumen-texto">Envíos en camino</span>
+                        <span class="resumen-link">Actualizar seguimiento →</span>
+                    </a>
+                    <a href="index.php?accion=listarEncomiendas" class="resumen-card">
+                        <span class="resumen-numero"><?php echo (int) $resumen['entregadas']; ?></span>
+                        <span class="resumen-texto">Encomiendas entregadas</span>
+                        <span class="resumen-link">Ver encomiendas →</span>
+                    </a>
+                    <a href="index.php?accion=vehiculosDisponibles" class="resumen-card">
+                        <span class="resumen-numero"><?php echo (int) $resumen['vehiculos_libres']; ?></span>
+                        <span class="resumen-texto">Vehículos disponibles</span>
+                        <span class="resumen-link">Ver flota →</span>
+                    </a>
+                    <a href="index.php?accion=listarClientes" class="resumen-card">
+                        <span class="resumen-numero"><?php echo (int) $resumen['clientes']; ?></span>
+                        <span class="resumen-texto">Clientes registrados</span>
+                        <span class="resumen-link">Ver clientes →</span>
+                    </a>
                 </div>
-
-                <div class="card">
-                    <h3>Roles del Sistema</h3>
-                    <p>Consulta los permisos y perfiles configurados en la plataforma.</p>
-                    <a href="index.php?accion=listarRoles" class="btn-card">Ver Roles</a>
-                </div>
-
-                <div class="card">
-                    <h3>Gestión de Ciudades</h3>
-                    <p>Administra las ciudades y departamentos para las rutas de envío.</p>
-                    <a href="index.php?accion=listarCiudades" class="btn-card">Ver Ciudades</a>
-                </div>
-
-                <div class="card">
-                    <h3>Flota de Vehículos</h3>
-                    <p>Controla los camiones disponibles y sus placas.</p>
-                    <a href="index.php?accion=listarVehiculos" class="btn-card">Ver Vehículos</a>
-                </div>
-
-                <div class="card">
-                    <h3>Registro de Choferes</h3>
-                    <p>Administra el registro y licencias de los conductores.</p>
-                    <a href="index.php?accion=listarChoferes" class="btn-card">Ver Choferes</a>
-                </div>
-                
-                <div class="card">
-                    <h3>Directorio de Clientes</h3>
-                    <p>Visualiza el registro de clientes externos de la empresa.</p>
-                    <div class="card-actions">
-                        <a href="index.php?accion=listarClientes" class="btn-card">Ver Clientes</a>
-                        <a href="index.php?accion=registroCliente" class="btn-card btn-secondary-card">Registrar Nuevo</a>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>Registro de Encomiendas</h3>
-                    <p>Registra los paquetes de los clientes con su peso y destino.</p>
-                    <div class="card-actions">
-                        <a href="index.php?accion=listarEncomiendas" class="btn-card">Ver Encomiendas</a>
-                        <a href="index.php?accion=registroEncomienda" class="btn-card btn-secondary-card">Registrar Nueva</a>
-                    </div>
-                </div>
+                <?php } else { ?>
+                <p class="resumen-error">No se pudo cargar el resumen, intente de nuevo.</p>
+                <?php } ?>
             </section>
+
+            <?php require __DIR__ . '/pendientes.php'; ?>
         </main>
     </div>
 

@@ -26,11 +26,27 @@ class EntregaController
             return 'Ingrese una encomienda válida y el nombre del receptor.';
         }
 
+        $estadoActual = $this->modelo->estadoEncomienda($idEncomienda);
+        if (!$estadoActual) {
+            return 'No existe una encomienda con ese número.';
+        }
+        if ($estadoActual['envios'] == 0) {
+            return 'La encomienda todavía no tiene un envío, no se puede entregar.';
+        }
+        if ($estadoActual['entregas'] > 0) {
+            return 'Esta encomienda ya fue entregada.';
+        }
+
         $resultado = $this->modelo->registrarEntrega(
             $idEncomienda,
             $receptor,
             $observacion
         );
+
+        if ($resultado) {
+            $this->modelo->liberarVehiculo($idEncomienda);
+            $this->modelo->registrarSeguimientoEntregado($idEncomienda);
+        }
 
         return $resultado
             ? 'Entrega registrada correctamente.'

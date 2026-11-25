@@ -151,6 +151,11 @@ $idEncomienda = $idEncomienda ?? 0;
         </table>
     </div>
 
+    <?php if (($accion ?? '') == 'consultarTracking'): ?>
+    <p>
+        <a href="index.php?accion=inicio">Volver al inicio</a>
+    </p>
+    <?php else: ?>
     <p>
     <a href="index.php?accion=registroTracking">Registrar nuevo seguimiento</a>
 </p>
@@ -158,6 +163,7 @@ $idEncomienda = $idEncomienda ?? 0;
 <p>
     <a href="index.php?accion=listarSeguimiento">Volver al menú del módulo 5</a>
 </p>
+    <?php endif; ?>
 </div>
 
 </body>

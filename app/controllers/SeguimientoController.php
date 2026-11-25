@@ -26,6 +26,22 @@ class SeguimientoController
             return 'Complete todos los campos correctamente.';
         }
 
+        // entregado solo se marca desde confirmar entrega
+        if ($estado === 'Entregado') {
+            return 'Para marcar la encomienda como entregada use la opción Confirmar entrega.';
+        }
+
+        $estadoActual = $this->modelo->estadoEncomienda($idEncomienda);
+        if (!$estadoActual) {
+            return 'No existe una encomienda con ese número.';
+        }
+        if ($estadoActual['envios'] == 0) {
+            return 'La encomienda todavía no tiene un envío programado.';
+        }
+        if ($estadoActual['entregas'] > 0) {
+            return 'La encomienda ya fue entregada, no se puede registrar más seguimiento.';
+        }
+
         $resultado = $this->modelo->registrarActualizacion(
             $idEncomienda,
             $ubicacion,

@@ -103,3 +103,12 @@ body.login-body {
     text-decoration: underline;
     color: #2563eb;
 }
+.link-inicio {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.link-inicio a {
+    color: #3b82f6;
+    text-decoration: none;
+}

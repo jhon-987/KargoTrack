@@ -10,7 +10,12 @@
     <div class="container">
         <div class="top-actions">
             <h2>Listado de Usuarios</h2>
+            <a href="index.php?accion=formularioUsuario" class="btn btn-nuevo">+ Registrar usuario</a>
         </div>
+
+        <?php if (($mensaje ?? '') == 'registrado'): ?>
+            <p class="alert-ok">Usuario registrado correctamente.</p>
+        <?php endif; ?>
 
         <table>
             <thead>

@@ -17,6 +17,14 @@ class Ciudad {
         return $stmt->execute([$nombre, $departamento]);
     }
 
+    // revisa si ya hay una ciudad con ese nombre en ese departamento
+    public function existe($nombre, $departamento) {
+        $sql = "SELECT COUNT(*) FROM ciudades WHERE nombre = ? AND departamento = ?";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([$nombre, $departamento]);
+        return $stmt->fetchColumn() > 0;
+    }
+
     // Lista todas las ciudades registradas
     public function listar() {
         $sql = "SELECT * FROM ciudades ORDER BY id_ciudad DESC";

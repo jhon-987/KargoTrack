@@ -17,29 +17,29 @@
         <h2>KargoTrack</h2>
         <p>Registro de usuarios</p>
 
-        <?php if (isset($error)): ?>
+        <?php if (!empty($error)): ?>
             <div class="alert-error"><?php echo $error; ?></div>
         <?php endif; ?>
 
-        <form action="index.php?accion=registrarUsuario" method="POST">
+        <form action="index.php?accion=guardarUsuario" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombre ?? ''); ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required>
+                <input type="text" id="apellido" name="apellido" value="<?php echo htmlspecialchars($apellidos ?? ''); ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="correo">Correo electrónico:</label>
-                <input type="email" id="correo" name="correo" required>
+                <input type="email" id="correo" name="correo" value="<?php echo htmlspecialchars($correo ?? ''); ?>" autocomplete="off" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" autocomplete="new-password" required>
             </div>
 
             <div class="form-group">

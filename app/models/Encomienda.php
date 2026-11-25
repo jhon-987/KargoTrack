@@ -24,7 +24,8 @@ class Encomienda
         $query = "SELECT e.id_encomienda, e.cliente_id, e.peso, e.destino,
                          c.nombre AS cliente_nombre, c.apellido AS cliente_apellido,
                          c.documento AS cliente_documento,
-                         (SELECT COUNT(*) FROM envios v WHERE v.id_encomienda = e.id_encomienda) AS tiene_envio
+                         (SELECT COUNT(*) FROM envios v WHERE v.id_encomienda = e.id_encomienda) AS tiene_envio,
+                         (SELECT COUNT(*) FROM entregas t WHERE t.id_encomienda = e.id_encomienda) AS tiene_entrega
                   FROM encomiendas e
                   INNER JOIN clientes c ON e.cliente_id = c.id_cliente
                   ORDER BY e.id_encomienda DESC";

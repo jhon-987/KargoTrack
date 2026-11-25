@@ -82,6 +82,27 @@
             text-align: center;
             color: #888;
         }
+
+        .alerta-ok, .alerta-error {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .alerta-ok {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .alerta-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .volver {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -91,18 +112,24 @@
 
     <h2>Gestión de Ciudades</h2>
 
+    <?php if (!empty($mensaje)): ?>
+        <p class="alerta-error"><?= htmlspecialchars($mensaje) ?></p>
+    <?php elseif (!empty($exito)): ?>
+        <p class="alerta-ok">Ciudad registrada correctamente.</p>
+    <?php endif; ?>
+
     <div class="card">
         <h3>Registrar Ciudad</h3>
 
         <form method="POST" action="index.php?accion=registroCiudad">
             <div class="form-group">
                 <label>Nombre de ciudad</label>
-                <input type="text" name="nombre" placeholder="Ingrese el nombre de la ciudad" required>
+                <input type="text" name="nombre" value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>" placeholder="Ingrese el nombre de la ciudad" required>
             </div>
 
             <div class="form-group">
                 <label>Departamento</label>
-                <input type="text" name="departamento" placeholder="Ingrese el departamento" required>
+                <input type="text" name="departamento" value="<?= htmlspecialchars($_POST['departamento'] ?? '') ?>" placeholder="Ingrese el departamento" required>
             </div>
 
             <button type="submit">Registrar Ciudad</button>
@@ -138,6 +165,8 @@
             </tbody>
         </table>
     </div>
+
+    <p class="volver"><a href="index.php?accion=<?php echo ($_SESSION["idRol"] ?? 1) == 1 ? "dashboardAdmin" : "dashboardOperador"; ?>">Volver al panel</a></p>
 
 </div>
 

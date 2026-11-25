@@ -24,12 +24,12 @@
         <section class="hero-section">
             <div class="hero-content">
                 <h1>Rastrea tu Encomienda al Instante</h1>
-                <p>Ingresa el código único de seguimiento proporcionado en tu comprobante para conocer la ubicación y el estado actual de tu envío en tiempo real.</p>
+                <p>Ingresa el número de encomienda que figura en tu comprobante para conocer la ubicación y el estado actual de tu envío en tiempo real.</p>
 
                 <form action="index.php" method="GET" class="tracking-form">
                     <input type="hidden" name="accion" value="consultarTracking">
                     <div class="input-group">
-                        <input type="text" name="codigo" placeholder="Ej. TRK-987654" required autocomplete="off">
+                        <input type="number" name="id_encomienda" min="1" placeholder="Ej. 15" required autocomplete="off">
                         <button type="submit" class="btn-buscar">Consultar Estado</button>
                     </div>
                 </form>

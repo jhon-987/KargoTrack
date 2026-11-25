@@ -68,6 +68,8 @@ class VehiculoController{
             $mensaje = $this->validar($placa, $modelo);
             if($id === false){
                 $mensaje = "El ID del vehículo no es válido";
+            }else if($mensaje == "" && $disponible == "1" && (new Vehiculo())->tieneEnvioEnCurso($id)){
+                $mensaje = "No se puede marcar como disponible porque el vehículo está en un envío en curso";
             }else if($mensaje == ""){
                 try{
                     $vehiculo = new Vehiculo($placa, $modelo, $disponible == "1" ? 1 : 0, $id);

@@ -88,3 +88,19 @@ tr:hover {
     color: #64748b;
     padding: 20px;
 }
+.alert-ok {
+    background: #dcfce7;
+    color: #166534;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.btn-nuevo {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.btn-nuevo:hover {
+    background-color: #2563eb;
+}

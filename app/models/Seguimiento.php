@@ -28,7 +28,21 @@ class Seguimiento
         ]);
     }
 
- 
+    // dice si la encomienda existe, si ya tiene envio y si ya se entrego
+    public function estadoEncomienda(int $idEncomienda): array|false
+    {
+        $sql = "select e.id_encomienda,
+                       (select count(*) from envios v where v.id_encomienda = e.id_encomienda) as envios,
+                       (select count(*) from entregas t where t.id_encomienda = e.id_encomienda) as entregas
+                from encomiendas e
+                where e.id_encomienda = :id_encomienda";
+
+        $consulta = $this->conexion->prepare($sql);
+        $consulta->execute([':id_encomienda' => $idEncomienda]);
+
+        return $consulta->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function consultarHistorial(int $idEncomienda): array
     {
         $sql = "select id_seguimiento, id_encomienda,

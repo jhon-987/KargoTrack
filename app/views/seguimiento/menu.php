@@ -48,6 +48,11 @@
         a:hover {
             background: #104b80;
         }
+
+        .volver {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +66,8 @@
             <a href="index.php?accion=registroEntrega">Confirmar entrega</a>
             <a href="index.php?accion=consultarEntrega">Consultar entrega</a>
         </div>
+
+        <p class="volver"><a href="index.php?accion=<?php echo ($_SESSION["idRol"] ?? 1) == 1 ? "dashboardAdmin" : "dashboardOperador"; ?>">Volver al panel</a></p>
     </div>
 </body>
 </html>

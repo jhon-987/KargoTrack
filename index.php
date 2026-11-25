@@ -55,11 +55,33 @@ switch ($accion) {
     // DASHBOARDS POR ROL
     case 'dashboardAdmin':
         verificarAcceso([1]);
+        require_once __DIR__ . '/app/models/Panel.php';
+        try {
+            $panel = new Panel();
+            $resumen = $panel->resumen();
+            $esperando = $panel->esperandoEnvio();
+            $enCamino = $panel->enCamino();
+        } catch (PDOException $e) {
+            $resumen = false;
+            $esperando = [];
+            $enCamino = [];
+        }
         require __DIR__ . '/app/views/dashboard/admin.php';
         break;
 
     case 'dashboardOperador':
         verificarAcceso([2]);
+        require_once __DIR__ . '/app/models/Panel.php';
+        try {
+            $panel = new Panel();
+            $resumen = $panel->resumen();
+            $esperando = $panel->esperandoEnvio();
+            $enCamino = $panel->enCamino();
+        } catch (PDOException $e) {
+            $resumen = false;
+            $esperando = [];
+            $enCamino = [];
+        }
         require __DIR__ . '/app/views/dashboard/operador.php';
         break;
 
@@ -164,7 +186,7 @@ switch ($accion) {
             }
         } catch (PDOException $e) {
             http_response_code(500);
-            $mensaje = 'Error al conectar con la base de datos.';
+            $mensaje = 'No se pudo registrar el seguimiento, revise los datos ingresados.';
         }
         require __DIR__ . '/app/views/seguimiento/registrar.php';
         break;
@@ -201,7 +223,7 @@ switch ($accion) {
             }
         } catch (PDOException $e) {
             http_response_code(500);
-            $mensaje = 'Error al conectar o guardar en la base de datos.';
+            $mensaje = 'No se pudo registrar la entrega, revise los datos ingresados.';
         }
         require __DIR__ . '/app/views/entregas/registrar.php';
         break;
@@ -231,11 +253,15 @@ switch ($accion) {
         verificarAcceso([1, 2]);
         require_once __DIR__ . '/app/controllers/CiudadController.php';
         $ciudadController = new CiudadController();
+        $mensaje = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $ciudadController->registrar(trim($_POST['nombre']), trim($_POST['departamento']));
-            header('Location: index.php?accion=listarCiudades');
-            exit();
+            $mensaje = $ciudadController->registrar(trim($_POST['nombre'] ?? ''), trim($_POST['departamento'] ?? ''));
+            if ($mensaje == '') {
+                header('Location: index.php?accion=listarCiudades&mensaje=registrada');
+                exit();
+            }
         }
+        $exito = ($_GET['mensaje'] ?? '') == 'registrada';
         $ciudades = $ciudadController->listar();
         require __DIR__ . '/app/views/ciudades/gestionar.php';
         break;
@@ -248,21 +274,28 @@ switch ($accion) {
         require_once __DIR__ . '/app/controllers/CiudadController.php';
         $envioController = new EnvioController();
         $ciudadController = new CiudadController();
+        $mensaje = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $envioController->programarEnvio(
-                $_POST['id_encomienda'],
-                $_POST['id_ciudad_origen'],
-                $_POST['id_ciudad_destino'],
-                $_POST['id_vehiculo'],
-                $_POST['id_chofer'],
-                $_POST['fecha_salida'],
-                $_POST['fecha_llegada']
+            $mensaje = $envioController->programarEnvio(
+                $_POST['id_encomienda'] ?? '',
+                $_POST['id_ciudad_origen'] ?? '',
+                $_POST['id_ciudad_destino'] ?? '',
+                $_POST['id_vehiculo'] ?? '',
+                $_POST['id_chofer'] ?? '',
+                $_POST['fecha_salida'] ?? '',
+                $_POST['fecha_llegada'] ?? ''
             );
-            header('Location: index.php?accion=listarEnvios');
-            exit();
+            if ($mensaje == '') {
+                header('Location: index.php?accion=listarEnvios&mensaje=registrado');
+                exit();
+            }
         }
+        $exito = ($_GET['mensaje'] ?? '') == 'registrado';
         $envios = $envioController->listar();
         $ciudades = $ciudadController->listar();
+        $encomiendas = $envioController->listarEncomiendasSinEnvio();
+        $vehiculos = $envioController->listarVehiculosDisponibles();
+        $choferes = $envioController->listarChoferesLibres();
         require __DIR__ . '/app/views/envios/gestionar.php';
         break;
 

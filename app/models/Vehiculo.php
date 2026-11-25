@@ -88,4 +88,17 @@ class Vehiculo{
         $conexion = null;
         return $filas;
     }
+
+    // devuelve true si el vehiculo esta en un envio que todavia no se entrega
+    public function tieneEnvioEnCurso($id){
+        $conexion = Conexion::conectar();
+        $sql = "select count(*) from envios v where v.id_vehiculo = :id
+                and not exists (select 1 from entregas t where t.id_encomienda = v.id_encomienda)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $total = $stmt->fetchColumn();
+        $conexion = null;
+        return $total > 0;
+    }
 }

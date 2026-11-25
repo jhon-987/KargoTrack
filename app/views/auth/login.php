@@ -19,16 +19,18 @@
         <form action="index.php?accion=iniciarSesion" method="POST">
             <div class="form-group">
                 <label for="correo">Correo electrónico:</label>
-                <input type="email" id="correo" name="correo" required>
+                <input type="email" id="correo" name="correo" autocomplete="username" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
             </div>
 
             <button type="submit" class="btn-primary">Ingresar</button>
         </form>
+
+        <p class="link-inicio"><a href="index.php?accion=inicio">← Volver al inicio</a></p>
 
     </div>
 

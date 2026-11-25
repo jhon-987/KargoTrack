@@ -77,7 +77,8 @@ body {
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.badge-admin {
+.badge-admin,
+.badge-operador {
     background-color: #e0f2fe;
     color: #0369a1;
     padding: 6px 12px;
@@ -142,4 +143,149 @@ body {
 
 .btn-card:hover {
     background-color: #2563eb;
+}
+/* resumen del panel */
+.resumen {
+    padding: 40px;
+}
+
+.resumen h3 {
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+.resumen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.resumen-card {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    border-top: 4px solid #3b82f6;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: 0.2s;
+}
+
+.resumen-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.resumen-numero {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.resumen-texto {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.resumen-link {
+    color: #3b82f6;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.resumen-error {
+    color: #b91c1c;
+}
+
+/* menu agrupado por areas */
+.menu-titulo {
+    padding: 18px 25px 6px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+}
+
+.sidebar-usuario {
+    padding: 20px 25px;
+    border-top: 1px solid #1e293b;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sidebar-usuario strong {
+    color: white;
+}
+
+.sidebar-usuario .logout-link {
+    margin-top: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.subtitulo {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+/* lo que falta atender */
+.pendientes {
+    padding: 0 40px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 20px;
+}
+
+.pendientes-bloque {
+    background: white;
+    border-radius: 8px;
+    padding: 22px 25px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+}
+
+.pendientes-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.pendientes-cabecera h3 {
+    color: #1e293b;
+    font-size: 1.05rem;
+}
+
+.pendientes-cabecera a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.pendientes table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.pendientes th {
+    text-align: left;
+    color: #64748b;
+    font-weight: 600;
+    padding: 8px 6px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.pendientes td {
+    padding: 10px 6px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.pendientes-vacio {
+    color: #64748b;
+    font-size: 0.95rem;
 }

@@ -49,7 +49,7 @@
                     <td><?php echo htmlspecialchars($enc['cliente_documento']); ?></td>
                     <td><?php echo number_format((float) $enc['peso'], 2); ?></td>
                     <td><?php echo htmlspecialchars($enc['destino']); ?></td>
-                    <td><?php echo $enc['tiene_envio'] > 0 ? 'Programado' : 'Pendiente'; ?></td>
+                    <td><?php if ($enc['tiene_entrega'] > 0) { echo 'Entregado'; } else if ($enc['tiene_envio'] > 0) { echo 'Programado'; } else { echo 'Pendiente'; } ?></td>
                     <td>
                         <?php if ($enc['tiene_envio'] == 0): ?>
                             <a href="index.php?accion=editarEncomienda&id=<?php echo (int) $enc['id_encomienda']; ?>">Editar</a> |

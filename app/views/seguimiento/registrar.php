@@ -119,7 +119,6 @@ $mensaje = $mensaje ?? '';
             <option value="Recibido en destino">
                 Recibido en destino
             </option>
-            <option value="Entregado">Entregado</option>
         </select>
 
         <button type="submit">
